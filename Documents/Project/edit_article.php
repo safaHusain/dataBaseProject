@@ -91,6 +91,13 @@ echo $article_id;
         }
     }
 
+    p{
+        color: #ba001f;
+        margin-bottom: 5px;
+        margin-top: 5px;
+        font-weight: bold;
+    }
+
 </style>
 
 
@@ -122,6 +129,9 @@ if (isset($_POST["saved"])) {
             $downloadableType = $downloadable['type'];
             $downloadableSize = $downloadable['size'];
             //$downloadableData = file_get_contents($downloadable['tmp_name']);
+            //upload download to folder
+            $downloadTarget = "uploads/" . basename($downloadable['name']);
+            move_uploaded_file($downloadable['tmp_name'], $downloadTarget);
 
             $download = new Downloads();
             $download->setArticleId($article_id);
@@ -130,12 +140,9 @@ if (isset($_POST["saved"])) {
             $download->setSize($downloadableSize);
             $download->setType($downloadableType);
             $download->updateDownloadable();
-
         }
     }
-}
-
-if (isset($_POST["published"])) {
+} elseif (isset($_POST["published"])) {
     $category = $_POST['category'];
     $title = $_POST['title'];
     $body = $_POST['body'];
@@ -154,7 +161,7 @@ if (isset($_POST["published"])) {
         $articleId = $article->publishSavedArticle();
 
         $saved = "Article published successfully!";
-        
+
         $downloadable = $_FILES['downloadable'];
         // Process the downloadable file if provided
         if (!empty($downloadable['name'])) {
@@ -162,6 +169,9 @@ if (isset($_POST["published"])) {
             $downloadableType = $downloadable['type'];
             $downloadableSize = $downloadable['size'];
             //$downloadableData = file_get_contents($downloadable['tmp_name']);
+            //upload download to folder
+            $downloadTarget = "uploads/" . basename($downloadable['name']);
+            move_uploaded_file($downloadable['tmp_name'], $downloadTarget);
 
             $download = new Downloads();
             $download->setArticleId($article_id);
@@ -170,7 +180,6 @@ if (isset($_POST["published"])) {
             $download->setSize($downloadableSize);
             $download->setType($downloadableType);
             $download->updateDownloadable();
-
         }
     }
 }
@@ -180,7 +189,7 @@ if (isset($_POST["published"])) {
     <div class="container">
         <h2>Edit News Article</h2>
 
-        <?php if (isset($error)): ?>
+<?php if (isset($error)): ?>
             <p style="color: red;"><?php echo $error; ?></p>
         <?php endif; ?>
 
@@ -221,10 +230,12 @@ if (isset($_POST["published"])) {
 
             <label for="downloadable">Downloadable File (Optional):</label>
             <p>Old file: <?php echo $download->getName(); ?> </p>
+            <input type="hidden" name="MAX_FILE_SIZE" value="10000000" />
             <p>New File: </p><input type="file" id="downloadable" name="downloadable">
 
 
-            <input type="submit" name="saved" value="Save">
+            <input type="submit" name="saved" value="Save for later">
+            <p>OR</p>
             <input type="submit" name="published" value="Publish">
 
         </form>

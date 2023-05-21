@@ -87,11 +87,18 @@ include 'header.php';
         color: red;
         font-weight: bold;
     }
-    
+
     h2{
         color: #ba001f;
         margin-bottom: 10px;
-        margin-top: 10px; 
+        margin-top: 10px;
+        font-weight: bold;
+    }
+
+    p{
+        color: #ba001f;
+        margin-bottom: 5px;
+        margin-top: 5px;
         font-weight: bold;
     }
 
@@ -137,6 +144,9 @@ if (isset($_POST["saved"])) {
             $imageType = $image['type'];
             $imageSize = $image['size'];
             //$imageData = file_get_contents($image['tmp_name']);
+            //upload image to folder
+            $imageTarget = "uploads/" . basename($image['name']);
+            move_uploaded_file($image['tmp_name'], $imageTarget);
 
             $mediaObj->setArticleId($articleId);
             //$mediaObj->setData($imageData);
@@ -150,6 +160,9 @@ if (isset($_POST["saved"])) {
             $mediaType = $media['type'];
             $mediaSize = $media['size'];
             //$mediaData = file_get_contents($media['tmp_name']);
+            //upload media to folder
+            $mediaTarget = "uploads/" . basename($media['name']);
+            move_uploaded_file($media['tmp_name'], $mediaTarget);
 
             $mediaObj->setArticleId($articleId);
             //$mediaObj->setData($mediaData);
@@ -164,6 +177,9 @@ if (isset($_POST["saved"])) {
                 $downloadableType = $downloadable['type'];
                 $downloadableSize = $downloadable['size'];
                 //$downloadableData = file_get_contents($downloadable['tmp_name']);
+                //upload download to folder
+                $downloadTarget = "uploads/" . basename($downloadable['name']);
+                move_uploaded_file($downloadable['tmp_name'], $downloadTarget);
 
                 $download = new Downloads();
                 $download->setArticleId($articleId);
@@ -178,10 +194,7 @@ if (isset($_POST["saved"])) {
             $saved = "Article saved successfully!";
         }
     }
-}
-
-
-if (isset($_POST["published"])) {
+} elseif (isset($_POST["published"])) {
 
     $category = $_POST['category'];
     $title = $_POST['title'];
@@ -216,10 +229,13 @@ if (isset($_POST["published"])) {
             $imageName = $image['name'];
             $imageType = $image['type'];
             $imageSize = $image['size'];
-            $imageData = file_get_contents($image['tmp_name']);
+            //$imageData = file_get_contents($image['tmp_name']);
+            //upload image to folder
+            $imageTarget = "uploads/" . basename($image['name']);
+            move_uploaded_file($image['tmp_name'], $imageTarget);
 
             $mediaObj->setArticleId($articleId);
-            $mediaObj->setData($imageData);
+            //$mediaObj->setData($imageData);
             $mediaObj->setName($imageName);
             $mediaObj->setSize($imageSize);
             $mediaObj->setType($imageType);
@@ -229,10 +245,13 @@ if (isset($_POST["published"])) {
             $mediaName = $media['name'];
             $mediaType = $media['type'];
             $mediaSize = $media['size'];
-            $mediaData = file_get_contents($media['tmp_name']);
+            //$mediaData = file_get_contents($media['tmp_name']);
+            //upload media to folder
+            $mediaTarget = "uploads/" . basename($media['name']);
+            move_uploaded_file($media['tmp_name'], $mediaTarget);
 
             $mediaObj->setArticleId($articleId);
-            $mediaObj->setData($mediaData);
+            //$mediaObj->setData($mediaData);
             $mediaObj->setName($mediaName);
             $mediaObj->setSize($mediaSize);
             $mediaObj->setType($mediaType);
@@ -243,11 +262,14 @@ if (isset($_POST["published"])) {
                 $downloadableName = $downloadable['name'];
                 $downloadableType = $downloadable['type'];
                 $downloadableSize = $downloadable['size'];
-                $downloadableData = file_get_contents($downloadable['tmp_name']);
+                //$downloadableData = file_get_contents($downloadable['tmp_name']);
+                //upload download to folder
+                $downloadTarget = "uploads/" . basename($downloadable['name']);
+                move_uploaded_file($downloadable['tmp_name'], $downloadTarget);
 
                 $download = new Downloads();
                 $download->setArticleId($articleId);
-                $download->setData($downloadableData);
+                //$download->setData($downloadableData);
                 $download->setName($downloadableName);
                 $download->setSize($downloadableSize);
                 $download->setType($downloadableType);
@@ -266,13 +288,13 @@ if (isset($_POST["published"])) {
     <div class="container">
         <h2>Create News Article</h2>
 
-        <?php if (isset($error)): ?>
+<?php if (isset($error)): ?>
             <p style="color: red;"><?php echo $error; ?></p>
-        <?php endif; ?>
+<?php endif; ?>
 
-        <?php if (isset($saved)): ?>
+<?php if (isset($saved)): ?>
             <p style="color: green;"><?php echo $saved; ?></p>
-        <?php endif; ?>
+<?php endif; ?>
 
 
 
@@ -293,15 +315,19 @@ if (isset($_POST["published"])) {
             <textarea id="body" name="body" rows="5"></textarea>
 
             <label for="images">Images:</label>
+            <input type="hidden" name="MAX_FILE_SIZE" value="10000000" />
             <input type="file" id="image" name="image" accept="image/*" multiple>
 
             <label for="media">Audio/Video:</label>
+            <input type="hidden" name="MAX_FILE_SIZE" value="10000000" />
             <input type="file" id="media" name="media" accept="audio/*,video/*">
 
             <label for="downloadable">Downloadable File (Optional):</label>
+            <input type="hidden" name="MAX_FILE_SIZE" value="10000000" />
             <input type="file" id="downloadable" name="downloadable">
 
-            <input type="submit" name="saved" value="Save">
+            <input type="submit" name="saved" value="Save for later">
+            <p>OR</p>
             <input type="submit" name="published" value="Publish">
 
         </form>
