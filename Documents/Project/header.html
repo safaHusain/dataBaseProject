@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html>
+    <head>
+        <title>online newspaper</title>
+        <link rel="stylesheet" href="style.css" type="text/css" media="screen" />
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div id="header"> <!--header div, containing title and menu-->
+
+            <h1>Online newspaper</h1>
+            <br>
+            <p>
+                <a href="" class="links">Home</a> <span class="bar">|</span>
+                <a href="login.php" class="links">Login</a> <span class="bar">|</span>
+                <a href="" class="links">Logout</a> <span class="bar">|</span>
+                <a href="register.php" class="links">Register</a> <span class="bar">|</span>
+                <?php if(isset($_SESSION['role']))?>
+            </p>
+        </div><!--end of header div-->
+    </body>
+</html>
