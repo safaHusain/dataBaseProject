@@ -22,7 +22,6 @@ if (isset($_GET['article_id'])) {
         $body = $row['text'];
         $publishedBy = $row['publishedBy'];
         $publishDate = $row['publishDate'];
-        $likes = $row['likes'];
 
         // Display the full article
         echo "<div class='article'>";
@@ -31,10 +30,82 @@ if (isset($_GET['article_id'])) {
         echo "<p class='articleNews-body'>$body</p>";
         echo "</div>";
 
+
+
+
         // Display the thumbs-up button and count
+        // Check if the user has already liked the article
+        $sessionid = $_SESSION['uid'];
+        $query = "SELECT COUNT(*) AS liked FROM likes WHERE artical_id = $articleId and user_id = $sessionid";
+        $allLikeQry = "SELECT COUNT(*) AS liked FROM likes WHERE artical_id = $articleId  ";
+        $result = mysqli_query($connection, $query);
+        $theresult = mysqli_query($connection, $allLikeQry);
+        $row = mysqli_fetch_assoc($result);
+        $therow = mysqli_fetch_assoc($theresult);
+
+        $theliked = $therow['liked'];
         echo "<div class='like-button'>";
-        echo "<div class='like-count'>Likes: <span id='like-count'>$likes</span></i>";
-        echo "<button id='likeButton'><i class='fa-solid fa-thumbs-up' id='like-btn' data-article-id='$articleId'>&#128077;</button>";
+        echo "<div class='like-count'>Likes: <span id='like-count'>$theliked</span></i>";
+        $liked = $row['liked'];
+        echo "<form method='post'>
+        <button name ='likeButton' type= 'submit' id='likeButton' value='like'><i class='fa-solid fa-thumbs-up' id='like-btn' data-article-id='$articleId'>&#128077;
+
+        </button>
+        </form>";
+        // Check if the like button is pressed
+        if (isset($_POST['likeButton'])) {
+
+            if ($liked > 0) {
+                $userId = $_SESSION['uid'];
+                $likeID = "SELECT * FROM `likes` WHERE artical_id = $articleId and user_id = $userId";
+                // $linkStmt = mysqli_prepare($connection, $likeID);
+                $theresult = mysqli_query($connection, $likeID);
+                $likeIDres = mysqli_fetch_assoc($theresult);
+                $like_id = $likeIDres['id'];
+                // echo "Like ID: " . $like_id;
+                $deleteQry = "DELETE FROM likes WHERE id = ?";
+                $deletePrep = mysqli_prepare($connection, $deleteQry);
+                $therow = mysqli_fetch_assoc($theresult);
+
+                if ($deletePrep) {
+                    mysqli_stmt_bind_param($deletePrep, 'i', $like_id);
+                    mysqli_stmt_execute($deletePrep);
+                    // echo "Delete: " . $d;
+                    mysqli_stmt_close($deletePrep);
+
+                    // Refresh the page to reflect the updated like count
+                    //header("Location: article.php?article_id=$articleId");
+                    header("Refresh:0");
+                    // echo "Error:" . $likeStmt;
+                    // exit();
+                } else {
+                    echo "<p class='error'>Error preparing the like statement: " . mysqli_error($connection) . "</p>";
+                }
+            } else {
+                // Insert a new like record in the database
+                $insertQuery = "INSERT INTO likes (user_id, artical_id) VALUES (?, ?)";
+                $stmt = mysqli_prepare($connection, $insertQuery);
+
+                if ($stmt) {
+                    $userId = $_SESSION['uid']; // Assuming the user ID is 1, replace with your actual user ID
+                    mysqli_stmt_bind_param($stmt, 'ii', $userId, $articleId);
+                    mysqli_stmt_execute($stmt);
+                    mysqli_stmt_close($stmt);
+
+
+
+
+                    // Refresh the page to reflect the updated like count
+                    //header("Location: article.php?article_id=$articleId");
+                    header("Refresh:0");
+                    // exit();
+                } else {
+                    echo "<p class='error'>Error preparing the uid statement: " . mysqli_error($connection) . "</p>";
+                }
+            }
+        }
+
+
         echo "</div>";
 
         // Display the comment section
@@ -44,26 +115,38 @@ if (isset($_GET['article_id'])) {
         // Display the comment form
         echo "<form class='comment-form' id='comment-form' method='POST'>";
         echo "<input type='hidden' name='article_id' value='$articleId'>";
-        echo "<input type='text' name='author' placeholder='Your Name' required>";
-        echo '<input type="text" id="usernameField" name="username" value="' . (isset($_SESSION['uid']) ? $_SESSION['uid'] : '') . '">';
-        echo "<textarea name='comment' placeholder='Your Comment' required></textarea>";
+        echo '<input type="text" id="usernameField" name="username" value="' . (isset($_SESSION['username']) ? $_SESSION['username'] : '') . '" disabled>';
+        echo "<textarea id ='txtComment' name='comment' placeholder='Your Comment' required></textarea>";
         echo "<button type='submit' name='submit-comment'>Submit Comment</button>";
         echo "</form>";
 
         // Check if the form is submitted
         if (isset($_POST['submit-comment'])) {
             // Get the values from the form
-            $author = mysqli_real_escape_string($connection, $_POST['author']);
-            $comment = mysqli_real_escape_string($connection, $_POST['comment']);
+            $author = $_SESSION['username'];
+            $comment = $_POST['comment'];
 
-            // Insert the comment into the database
-            $insertQuery = "INSERT INTO comments (article_id, author, comment, created_at) VALUES ('$articleId', '$author', '$comment', NOW())";
-            $insertResult = mysqli_query($connection, $insertQuery);
+            // Prepare the query using prepared statements
+            $insertQuery = "INSERT INTO comments (article_id, author, comment, created_at) VALUES (?, ?, ?, NOW())";
+            $stmt = mysqli_prepare($connection, $insertQuery);
 
-            if ($insertResult) {
-                echo "<p class='success'>Comment added successfully.</p>";
+            if ($stmt) {
+                // Bind the parameters
+                mysqli_stmt_bind_param($stmt, 'iss', $articleId, $author, $comment);
+
+                // Execute the statement
+                $insertResult = mysqli_stmt_execute($stmt);
+
+                if ($insertResult) {
+                    echo "<p class='success'>Comment added successfully.</p>";
+                } else {
+                    echo "<p class='error'>Error adding comment: " . mysqli_stmt_error($stmt) . "</p>";
+                }
+
+                // Close the statement
+                mysqli_stmt_close($stmt);
             } else {
-                echo "<p class='error'>Error adding comment.</p>";
+                echo "<p class='error'>Error preparing the x statement: " . mysqli_error($connection) . "</p>";
             }
         }
 
@@ -102,4 +185,3 @@ if (isset($_GET['article_id'])) {
 mysqli_close($connection);
 
 include 'footer.php';
-?>
