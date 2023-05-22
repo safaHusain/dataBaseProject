@@ -45,7 +45,7 @@ if (isset($_GET['article_id'])) {
         echo "<form class='comment-form' id='comment-form' method='POST'>";
         echo "<input type='hidden' name='article_id' value='$articleId'>";
         echo "<input type='text' name='author' placeholder='Your Name' required>";
-        echo '<input type="text" id="usernameField" name="username" value="<?php echo isset($_SESSION['uid']) ? $_SESSION['uid'] : ''; ?>">';
+        echo '<input type="text" id="usernameField" name="username" value="' . (isset($_SESSION['uid']) ? $_SESSION['uid'] : '') . '">';
         echo "<textarea name='comment' placeholder='Your Comment' required></textarea>";
         echo "<button type='submit' name='submit-comment'>Submit Comment</button>";
         echo "</form>";
