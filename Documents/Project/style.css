@@ -7,55 +7,54 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     Author     : safa
 */
 
-
 /* header div styling */
-#header{
-    height:80px;
-    margin:0 auto;
-    width:900px;
-}
-
-#header h1{
-    font-size:40;
-    color:#ba001f;
-}
-#header p{
-    font-size:20;
-    clear:both;
-}
-
-.links{
-    color:#000000;
-    font-weight:bold;
-    text-decoration:none;
-}
-.links:hover{
-    color:#ba001f;
-    text-decoration:underline;
-}
-.bar{
-    color:#ba001f;
-}
-/* end of header div styling */
-
-/* main div styling */
-#main{
-    width:100%;
-    clear:both;
-    padding-bottom:50px;
-    padding-top:50px;
-}
-/* end of main div styling */
-
-/* registration form styling */
-*{
+#header {
+    height: 80px;
+    margin: 0 auto;
+    width: 900px;
+  }
+  
+  #header h1 {
+    font-size: 40;
+    color: #ba001f;
+  }
+  #header p {
+    font-size: 20;
+    clear: both;
+  }
+  
+  .links {
+    color: #000000;
+    font-weight: bold;
+    text-decoration: none;
+  }
+  .links:hover {
+    color: #ba001f;
+    text-decoration: underline;
+  }
+  .bar {
+    color: #ba001f;
+  }
+  /* end of header div styling */
+  
+  /* main div styling */
+  #main {
+    width: 100%;
+    clear: both;
+    padding-bottom: 50px;
+    padding-top: 50px;
+  }
+  /* end of main div styling */
+  
+  /* registration form styling */
+  * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
-}
-
-.wrapper{
+    font-family: "Poppins", sans-serif;
+  }
+  
+  .wrapper {
     margin: 0 auto;
     position: relative;
     max-width: 430px;
@@ -63,16 +62,16 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     background: #fff;
     padding: 34px;
     border-radius: 6px;
-    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
-}
-.wrapper h2{
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  }
+  .wrapper h2 {
     position: relative;
     font-size: 22px;
     font-weight: 600;
     color: #333;
-}
-.wrapper h2::before{
-    content: '';
+  }
+  .wrapper h2::before {
+    content: "";
     position: absolute;
     left: 0;
     bottom: 0;
@@ -80,15 +79,15 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     width: 28px;
     border-radius: 12px;
     background: #4070f4;
-}
-.wrapper form{
+  }
+  .wrapper form {
     margin-top: 30px;
-}
-.wrapper form .input-box{
+  }
+  .wrapper form .input-box {
     height: 52px;
     margin: 18px 0;
-}
-form .input-box input{
+  }
+  form .input-box input {
     height: 100%;
     width: 100%;
     outline: none;
@@ -96,47 +95,264 @@ form .input-box input{
     font-size: 17px;
     font-weight: 400;
     color: #333;
-    border: 1.5px solid #C7BEBE;
+    border: 1.5px solid #c7bebe;
     border-bottom-width: 2.5px;
     border-radius: 6px;
     transition: all 0.3s ease;
-}
-.input-box input:focus,
-.input-box input:valid{
+  }
+  .input-box input:focus,
+  .input-box input:valid {
     border-color: #4070f4;
-}
-
-form h3{
+  }
+  
+  form h3 {
     color: #707070;
     font-size: 14px;
     font-weight: 500;
     margin-left: 10px;
-}
-.input-box.button input{
+  }
+  .input-box.button input {
     color: #fff;
     letter-spacing: 1px;
     border: none;
     background: #4070f4;
     cursor: pointer;
-}
-.input-box.button input:hover{
+  }
+  .input-box.button input:hover {
     background: #0e4bf1;
-}
-form .text h3{
+  }
+  form .text h3 {
     color: #333;
     width: 100%;
     text-align: center;
-}
-form .text h3 a{
+  }
+  form .text h3 a {
     color: #4070f4;
     text-decoration: none;
-}
-form .text h3 a:hover{
+  }
+  form .text h3 a:hover {
     text-decoration: underline;
-}
-
-/* end of registration form styling */
-
-.err{
-    color:red;
-}
+  }
+  
+  /* end of registration form styling */
+  .article {
+    margin-bottom: 20px;
+  }
+  
+  .article-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    margin-top: 10px;
+  }
+  .articleNews-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    margin-top: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .article-meta {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 10px;
+  }
+  
+  .articleNews-meta {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .article-body {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  .articleNews-body {
+    font-size: 18px;
+    margin-bottom: 10px;
+    width: 80%;
+    padding: 2%;
+    text-align: justify;
+    margin-left: auto;
+    margin-right: auto;
+    column-count: 3;
+    column-gap: 40px;
+  }
+  
+  .like-section {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .like-button {
+    background-color: transparent;
+    color: #ba001f;
+    border: none;
+    padding: 0;
+    font-size: 14px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+  
+  .like-button:hover {
+    color: #910018;
+  }
+  
+  .like-count {
+    margin-left: 5px;
+    font-size: 14px;
+    color: #888;
+  }
+  
+  .comment-section {
+    margin-bottom: 20px;
+  }
+  
+  .comment-form {
+    margin-bottom: 10px;
+  }
+  
+  .comment-form input,
+  .comment-form textarea {
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 5px;
+  }
+  
+  .comment-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .comment-item {
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .comment-item .author {
+    font-weight: bold;
+  }
+  
+  .comment-item .timestamp {
+    font-size: 12px;
+    color: #666;
+  }
+  
+  .comment-item .content {
+    margin-top: 5px;
+  }
+  /* .like-btn {
+    padding: 0.6em 2em;
+    border: none;
+    outline: none;
+    color: rgb(255, 255, 255);
+    background: #111;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border-radius: 10px;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+  }
+  
+  .like-btn:before {
+    content: "";
+    background: linear-gradient(
+      45deg,
+      rgba(245, 245, 247, 1),
+      rgba(89, 94, 71, 1),
+      rgba(136, 140, 115, 1),
+      rgba(245, 245, 247, 1),
+      rgba(29, 29, 31, 1)
+    );
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    background-size: 400%;
+    z-index: -1;
+    filter: blur(5px);
+    -webkit-filter: blur(5px);
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    animation: glowing-button-85 20s linear infinite;
+    transition: opacity 0.3s ease-in-out;
+    border-radius: 10px;
+  }
+  
+  @keyframes glowing-button-85 {
+    0% {
+      background-position: 0 0;
+    }
+    50% {
+      background-position: 400% 0;
+    }
+    100% {
+      background-position: 0 0;
+    }
+  }
+  
+  .like-btn:after {
+    z-index: -1;
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #222;
+    left: 0;
+    top: 0;
+    border-radius: 10px;
+    background: linear-gradient(#595e47, #888c73, #595e47);
+  }
+  
+  .like-btn:hover {
+    transform: scale(1.1);
+    transition: 0.5s;
+  } */
+  /* Like button styling */
+  .like-button {
+    display: flex;
+    align-items: center;
+  }
+  
+  .like-count {
+    margin-left: 5px;
+    font-size: 14px;
+    color: #888;
+  }
+  
+  .like-btn {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    font-size: 14px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+  
+  .like-btn i {
+    margin-right: 5px;
+  }
+  
+  .like-btn.filled i {
+    color: #ba001f;
+  }
+  
+  .like-btn.unfilled i {
+    color: #888;
+  }
+  
+  /* End of like button styling */
+  
+  /* end of news_page styling */
+  

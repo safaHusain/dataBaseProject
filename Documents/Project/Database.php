@@ -11,46 +11,54 @@
  * @author safa
  */
 
-class Database {
+class Database
+{
 
     public static $instance = null;
     public $dblink = null;
 
-    public static function getInstance() {
+    public static function getInstance()
+    {
         if (is_null(self::$instance)) {
-            self::$instance = new Database ( );
+            self::$instance = new Database();
         }
         return self::$instance;
     }
 
-    function __construct() {
+    function __construct()
+    {
         if (is_null($this->dblink)) {
             $this->connect();
         }
-    }  
-    
-    function connect() {
+    }
+
+    function connect()
+    {
         $this->dblink = mysqli_connect('localhost', 'u201902301', 'u201902301', 'db201902301') or die('CAN NOT CONNECT');
     }
 
-    function __destruct() {
+    function __destruct()
+    {
         if (!is_null($this->dblink)) {
             $this->close($this->dblink);
         }
     }
 
-    function close() {
+    function close()
+    {
         mysqli_close($this->dblink);
     }
 
-    function querySQL($sql) {
+    function querySQL($sql)
+    {
         //echo $sql;
         if ($sql != null || $sql != '') {
             mysqli_query($this->dblink, $sql);
         }
     }
 
-    function singleFetch($sql) {
+    function singleFetch($sql)
+    {
         //echo $sql;
         $fet = null;
         if ($sql != null || $sql != '') {
@@ -60,8 +68,9 @@ class Database {
         return $fet;
     }
 
-    function multiFetch($sql) {
-          
+    function multiFetch($sql)
+    {
+
         $result = null;
         $counter = 0;
         if ($sql != null || $sql != '') {
@@ -73,8 +82,9 @@ class Database {
         }
         return $result;
     }
-    
-    function mkSafe($string) {
+
+    function mkSafe($string)
+    {
         /*$string = strip_tags($string);
         if (!get_magic_quotes_gpc()) {
             $string = addslashes($string);
@@ -89,7 +99,4 @@ class Database {
 
         return $string;
     }
-
 }
-
-?>
