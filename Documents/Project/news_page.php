@@ -1,4 +1,3 @@
-
 <?php
 
 include 'header.php';
@@ -35,11 +34,8 @@ if (isset($_GET['article_id'])) {
         // Display the thumbs-up button and count
         echo "<div class='like-button'>";
         echo "<div class='like-count'>Likes: <span id='like-count'>$likes</span></i>";
-        echo " <i class='fa-solid fa-thumbs-up' id='like-btn' data-article-id='$articleId'>&#128077;</button>";
+        echo "<button id='likeButton'><i class='fa-solid fa-thumbs-up' id='like-btn' data-article-id='$articleId'>&#128077;</button>";
         echo "</div>";
-
-       
-        // <i class="fa-thin fa-thumbs-up"></i>
 
         // Display the comment section
         echo "<div class='comment-section'>";
@@ -49,9 +45,27 @@ if (isset($_GET['article_id'])) {
         echo "<form class='comment-form' id='comment-form' method='POST'>";
         echo "<input type='hidden' name='article_id' value='$articleId'>";
         echo "<input type='text' name='author' placeholder='Your Name' required>";
+        echo '<input type="text" id="usernameField" name="username" value="<?php echo isset($_SESSION['uid']) ? $_SESSION['uid'] : ''; ?>">';
         echo "<textarea name='comment' placeholder='Your Comment' required></textarea>";
-        echo "<button type='submit'>Submit Comment</button>";
+        echo "<button type='submit' name='submit-comment'>Submit Comment</button>";
         echo "</form>";
+
+        // Check if the form is submitted
+        if (isset($_POST['submit-comment'])) {
+            // Get the values from the form
+            $author = mysqli_real_escape_string($connection, $_POST['author']);
+            $comment = mysqli_real_escape_string($connection, $_POST['comment']);
+
+            // Insert the comment into the database
+            $insertQuery = "INSERT INTO comments (article_id, author, comment, created_at) VALUES ('$articleId', '$author', '$comment', NOW())";
+            $insertResult = mysqli_query($connection, $insertQuery);
+
+            if ($insertResult) {
+                echo "<p class='success'>Comment added successfully.</p>";
+            } else {
+                echo "<p class='error'>Error adding comment.</p>";
+            }
+        }
 
         // Fetch and display the comments for the article
         $query = "SELECT * FROM comments WHERE article_id = $articleId ORDER BY created_at DESC";
