@@ -99,4 +99,13 @@ class Database
 
         return $string;
     }
+    
+    function getRows($sql) {
+        $rows = 0;
+        if ($sql != null || $sql != '') {
+            $result = mysqli_query($this->dblink, $sql);
+            $rows = mysqli_num_rows($result);
+        }
+        return $rows;
+    }
 }

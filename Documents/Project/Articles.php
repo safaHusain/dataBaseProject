@@ -220,10 +220,16 @@ class Articles {
         return $data;
     }
 
-    function getAllUnpublishedArticlesForAuthor() {
+    function getAllUnpublishedArticlesForAuthor($start, $end) {
         $author = $_SESSION['username'];
         $db = Database::getInstance();
-        $data = $db->multiFetch("Select * from projectArticles where status = 0 and publishedBy = '$author'");
+        $q = "Select * from projectArticles where status = 0 and publishedBy = '$author'";
+        //$start *= $end;
+        if (isset($start)) {
+            $q .= ' limit ' . $start . ',' . $end;
+        }
+        echo $q;
+        $data = $db->multiFetch($q);
         return $data;
     }
     
