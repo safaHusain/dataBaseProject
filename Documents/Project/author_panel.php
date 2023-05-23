@@ -341,8 +341,18 @@ if (isset($_POST["saved"])) {
 //$query = "SELECT * FROM projectArticles WHERE status = 0";
 //$result = mysqli_query($db, $query);
 
+if (isset($_GET['pageno'])) {
+    $start = $_GET['pageno'];
+} else {
+    $start = 0;
+}
+
+$end = 10;
+
+$table = 'projectArticles';
+
 $articles = new Articles();
-$row = $articles->getAllUnpublishedArticlesForAuthor();
+$row = $articles->getAllUnpublishedArticlesForAuthor($start, $end);
 
 echo '<h2>Unpublished articles</h2>';
 // Check if there are any articles
@@ -369,6 +379,17 @@ if (!empty($row)) {
 
     // End the HTML table
     echo '</table>';
+    
+    echo '<table align="center" cellspacing = "2" cellpadding = "4" width="75%"><tr><td>';
+    $pagination = new Pagination();
+    $pagination->totalRecords($table);
+    $pagination->setLimit($end);
+    $pagination->page("", "");
+    echo $pagination->firstBack();
+    echo $pagination->where();
+    echo $pagination->nextLast();
+    echo '</td></tr></table>';
+    
 } else {
     echo '<p class="error">' . $query . '</p>';
     echo '<p class="error"> You dont have any unpublished articles</p>';
