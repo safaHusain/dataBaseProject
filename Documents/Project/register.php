@@ -72,9 +72,9 @@ include 'header.php';
 
 if (isset($_POST['submitted'])) {
     $user = new Users;
-    $user->setEmail($_POST['Email']);
-    $user->setPassword($_POST['Password']);
-    $user->setUsername($_POST['UserName']);
+    $user->setEmail(trim($_POST['Email']));
+    $user->setPassword(trim($_POST['Password']));
+    $user->setUsername(trim($_POST['UserName']));
 
     if ($user->initWithUsername()) {
         if ($user->registerUser()) {
