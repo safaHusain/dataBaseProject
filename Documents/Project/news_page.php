@@ -107,7 +107,7 @@ if (isset($_GET['article_id'])) {
 
 
         echo "</div>";
-
+        echo"<br>";
         // Display the comment section
         echo "<div class='comment-section'>";
         echo "<h3>Comments</h3>";
