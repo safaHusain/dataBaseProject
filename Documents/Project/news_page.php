@@ -36,8 +36,8 @@ if (isset($_GET['article_id'])) {
         // Display the thumbs-up button and count
         // Check if the user has already liked the article
         $sessionid = $_SESSION['uid'];
-        $query = "SELECT COUNT(*) AS liked FROM likes WHERE artical_id = $articleId and user_id = $sessionid";
-        $allLikeQry = "SELECT COUNT(*) AS liked FROM likes WHERE artical_id = $articleId  ";
+        $query = "SELECT COUNT(*) AS liked FROM ProjectLikes WHERE artical_id = $articleId and user_id = $sessionid";
+        $allLikeQry = "SELECT COUNT(*) AS liked FROM ProjectLikes WHERE artical_id = $articleId  ";
         $result = mysqli_query($connection, $query);
         $theresult = mysqli_query($connection, $allLikeQry);
         $row = mysqli_fetch_assoc($result);
@@ -57,13 +57,13 @@ if (isset($_GET['article_id'])) {
 
             if ($liked > 0) {
                 $userId = $_SESSION['uid'];
-                $likeID = "SELECT * FROM `likes` WHERE artical_id = $articleId and user_id = $userId";
+                $likeID = "SELECT * FROM `ProjectLikes` WHERE artical_id = $articleId and user_id = $userId";
                 // $linkStmt = mysqli_prepare($connection, $likeID);
                 $theresult = mysqli_query($connection, $likeID);
                 $likeIDres = mysqli_fetch_assoc($theresult);
                 $like_id = $likeIDres['id'];
                 // echo "Like ID: " . $like_id;
-                $deleteQry = "DELETE FROM likes WHERE id = ?";
+                $deleteQry = "DELETE FROM ProjectLikes WHERE id = ?";
                 $deletePrep = mysqli_prepare($connection, $deleteQry);
                 $therow = mysqli_fetch_assoc($theresult);
 
@@ -83,7 +83,7 @@ if (isset($_GET['article_id'])) {
                 }
             } else {
                 // Insert a new like record in the database
-                $insertQuery = "INSERT INTO likes (user_id, artical_id) VALUES (?, ?)";
+                $insertQuery = "INSERT INTO ProjectLikes (user_id, artical_id) VALUES (?, ?)";
                 $stmt = mysqli_prepare($connection, $insertQuery);
 
                 if ($stmt) {
@@ -127,7 +127,7 @@ if (isset($_GET['article_id'])) {
             $comment = $_POST['comment'];
 
             // Prepare the query using prepared statements
-            $insertQuery = "INSERT INTO comments (article_id, author, comment, created_at) VALUES (?, ?, ?, NOW())";
+            $insertQuery = "INSERT INTO ProjectComments (article_id, author, comment, created_at) VALUES (?, ?, ?, NOW())";
             $stmt = mysqli_prepare($connection, $insertQuery);
 
             if ($stmt) {
@@ -151,7 +151,7 @@ if (isset($_GET['article_id'])) {
         }
 
         // Fetch and display the comments for the article
-        $query = "SELECT * FROM comments WHERE article_id = $articleId ORDER BY created_at DESC";
+        $query = "SELECT * FROM ProjectComments WHERE article_id = $articleId ORDER BY created_at DESC";
         $result = mysqli_query($connection, $query);
 
         if (mysqli_num_rows($result) > 0) {
