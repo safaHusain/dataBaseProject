@@ -58,8 +58,8 @@ include 'header.php';
 
 if (isset($_POST['submitted'])) {
     $lgnObj = new Users();
-    $username = $_POST['Username'];
-    $password = $_POST['Password'];
+    $username = trim($_POST['Username']);
+    $password = trim($_POST['Password']);
 
     if ($lgnObj->login($username, $password)) {
         if ($_SESSION['role'] == "admin") {
