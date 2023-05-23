@@ -30,6 +30,64 @@ if (isset($_GET['article_id'])) {
         echo "<p class='articleNews-body'>$body</p>";
         echo "</div>";
 
+    // Retrieve the article ID from the URL parameter
+if (isset($_GET['article_id'])) {
+    $articleId = $_GET['article_id'];
+
+    // Validate and sanitize the input (e.g., using mysqli_real_escape_string)
+    $articleId = mysqli_real_escape_string($connection, $articleId);
+
+    // Query the database to retrieve the full article based on the article ID
+    $query = "SELECT * FROM projectArticles WHERE articleID = $articleId";
+    $result = mysqli_query($connection, $query);
+
+    if ($row = mysqli_fetch_assoc($result)) {
+        // Display the article content...
+
+        // Query the projectMedia table based on the article ID to fetch the associated media files
+        $mediaQuery = "SELECT * FROM projectMedia WHERE article_id = $articleId";
+        $mediaResult = mysqli_query($connection, $mediaQuery);
+
+        if (mysqli_num_rows($mediaResult) > 0) {
+            echo "<div class='media-section'>";
+            echo "<h3>Media Files</h3>";
+
+            // Display each media file
+            while ($mediaRow = mysqli_fetch_assoc($mediaResult)) {
+                $mediaName = $mediaRow['name'];
+                $mediaType = $mediaRow['type'];
+
+                // Display the media file based on its type
+                echo "<div class='media-file'>";
+                echo "<h4>$mediaName</h4>";
+
+                if (strpos($mediaType, 'image') !== false) {
+                    // Display an image file
+                    echo "<img src='uploads/$mediaName' alt='$mediaName' class='media-image'>";
+                } elseif (strpos($mediaType, 'video') !== false) {
+                    // Display a video file
+                    echo "<video controls src='uploads/$mediaName' class='media-video'></video>";
+                } elseif (strpos($mediaType, 'audio') !== false) {
+                    // Display an audio file
+                    echo "<audio controls src='uploads/$mediaName' class='media-audio'></audio>";
+                }
+
+                echo "</div>";
+            }
+
+            echo "</div>";
+        } else {
+            echo "<p>No media files found for the specified article.</p>";
+        }
+
+        // Display the rest of the article content...
+    } else {
+        echo "Article not found.";
+    }
+} else {
+    echo "Invalid article ID.";
+}
+
 
 
 
@@ -107,7 +165,7 @@ if (isset($_GET['article_id'])) {
 
 
         echo "</div>";
-        echo"<br>";
+        echo "<br>";
         // Display the comment section
         echo "<div class='comment-section'>";
         echo "<h3>Comments</h3>";

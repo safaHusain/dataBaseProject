@@ -302,5 +302,39 @@ form .text h3 a:hover {
 }
 
 /* End of like button styling */
+.media-section {
+  margin-top: 20px;
+}
+
+.media-section h3 {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.media-file {
+  margin-bottom: 20px;
+}
+
+.media-file h4 {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.media-image {
+  max-width: 100%;
+  height: auto;
+}
+
+.media-video {
+  max-width: 100%;
+  height: auto;
+}
+
+.media-audio {
+  width: 100%;
+}
+
 
 /* end of news_page styling */
