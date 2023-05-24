@@ -42,7 +42,9 @@ include 'debugging.php';
                   <a href="politics_page.php" class="links">Politics</a> <span class="bar">|</span>
                   <a href="business_page.php" class="links">Business</a> <span class="bar">|</span>
                   <a href="sports_page.php" class="links">Sports</a> <span class="bar">|</span>
-                  <a href="art_page.php" class="links">Art</a> <span class="bar">|</span>
+                  <!--<a href="art_page.php" class="links">Art</a> <span class="bar">|</span>-->
+                  <a href="international_page.php" class="links">International</a> <span class="bar">|</span>
+
                    
             </p>
         </div><!--end of header div-->
