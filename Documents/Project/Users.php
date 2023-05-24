@@ -195,9 +195,12 @@ class Users {
     }
 
     function logout() {
-        $_SESSION['uid'] = '';
-        $_SESSION['username'] = '';
-        $_SESSION['role'] = '';
+        unset($_SESSION['uid'],
+        $_SESSION['username'],
+        $_SESSION['role']);
+        // $_SESSION['uid'] = '';
+        // $_SESSION['username'] = '';
+        // $_SESSION['role'] = '';
         session_destroy();
     }
 

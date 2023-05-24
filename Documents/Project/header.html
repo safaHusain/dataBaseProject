@@ -4,24 +4,50 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to c
 Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
 -->
 <html>
-    <head>
-        <title>online newspaper</title>
-        <link rel="stylesheet" href="style.css" type="text/css" media="screen" />
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <div id="header"> <!--header div, containing title and menu-->
+  <head>
+    <title>online newspaper</title>
+    <link rel="stylesheet" href="style.css" type="text/css" media="screen" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <!--div for the navBar-->
+    <div class="navbar">
+      <!--logo image linked to the home page-->
+      <div class="logo">
+        <a href="index.html">
+          <img
+            src="images/logoRemove.png"
+            width="170"
+            height="150"
+            alt="Logo"
+          />
+        </a>
+      </div>
 
-            <h1>Online newspaper</h1>
-            <br>
-            <p>
-                <a href="" class="links">Home</a> <span class="bar">|</span>
-                <a href="login.php" class="links">Login</a> <span class="bar">|</span>
-                <a href="" class="links">Logout</a> <span class="bar">|</span>
-                <a href="register.php" class="links">Register</a> <span class="bar">|</span>
-                <?php if(isset($_SESSION['role']))?>
-            </p>
-        </div><!--end of header div-->
-    </body>
+      <nav>
+        <!--unorderd list contains main pages for the website-->
+        <ul id="MenuItems">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">Login</a></li>
+          <li><a href="coaches.html">Logout</a></li>
+          <li><a href="products.html">Register</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <div id="header">
+      <!--header div, containing title and menu-->
+
+      <p>
+        <a href="" class="links">Home</a> <span class="bar">|</span>
+        <a href="login.php" class="links">Login</a> <span class="bar">|</span>
+        <a href="" class="links">Logout</a> <span class="bar">|</span>
+        <a href="register.php" class="links">Register</a>
+        <span class="bar">|</span>
+        <?php if(isset($_SESSION['role']))?>
+      </p>
+    </div>
+    <!--end of header div-->
+  </body>
 </html>
