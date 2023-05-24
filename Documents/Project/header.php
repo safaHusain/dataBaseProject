@@ -41,31 +41,37 @@ if (!isset($_SESSION['uid'])) {
         <?php if (isset($_SESSION['uid']) && $_SESSION['uid'] == 69) { ?>
           <li><a href="login.php">Login</a></li>
 
-        <?php
-        } ?>
+            <h1>Online newspaper</h1>
+            <br>
+            <p>
+                <a href="index.php" class="links">Home</a> <span class="bar">|</span>
+                
+                <?php if (!isset($_SESSION['uid'])) { ?> 
+                <a href="login.php" class="links">Login</a> <span class="bar">|</span>
+                <?php } ?>
+                
+                <?php if (isset($_SESSION['uid'])) { ?> 
+                <a href="logout.php" class="links">Logout</a> <span class="bar">|</span>
+                <?php } ?>
+                
+                <a href="register.php" class="links">Register</a> <span class="bar">|</span>
+                
+                <?php if (isset($_SESSION['role']) && ($_SESSION['role']) == "admin") { ?> 
+                  <a href="admin_panel.php" class="links">Admin panel</a> <span class="bar">|</span>
+                <?php } ?>
+                  
+                  <?php if (isset($_SESSION['role']) && ($_SESSION['role']) == "author") { ?> 
+                  <a href="author_panel.php" class="links">Author panel</a> <span class="bar">|</span>
+                <?php } ?>
+                  
+                  <a href="politics_page.php" class="links">Politics</a> <span class="bar">|</span>
+                  <a href="business_page.php" class="links">Business</a> <span class="bar">|</span>
+                  <a href="sports_page.php" class="links">Sports</a> <span class="bar">|</span>
+                  <!--<a href="art_page.php" class="links">Art</a> <span class="bar">|</span>-->
+                  <a href="international_page.php" class="links">International</a> <span class="bar">|</span>
 
-        <?php if (isset($_SESSION['uid']) && $_SESSION['uid'] != 69) {  ?>
-          <li><a href="logout.php">Logout</a></li>
-        <?php } ?>
-
-        <?php if (isset($_SESSION['uid']) && $_SESSION['uid'] == 69) {  ?>
-          <li><a href="register.php">Register</a></li>
-        <?php } ?>
-
-        <?php if (isset($_SESSION['role']) && ($_SESSION['role']) == "admin") { ?>
-          <li><a href="admin_panel.php">Admin Panel</a></li>
-        <?php } ?>
-        <?php if (isset($_SESSION['role']) && ($_SESSION['role']) == "author") { ?>
-          <li><a href="author_panel.php">Author Panel</a></li>
-        <?php } ?>
-        <li><a href="politics_page.php">Politics</a></li>
-        <li><a href="business_page.php">Business</a></li>
-        <li><a href="sports_page.php">Sports</a></li>
-        <li><a href="art_page.php">Art</a></li>
-      </ul>
-    </nav>
-  </div>
-
-</body>
-
+                   
+            </p>
+        </div><!--end of header div-->
+    </body>
 </html>
