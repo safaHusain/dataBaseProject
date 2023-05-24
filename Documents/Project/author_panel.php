@@ -304,7 +304,7 @@ if (isset($_POST["saved"])) {
                 <option value="politics">Politics</option>
                 <option value="business">Business</option>
                 <option value="sports">Sports</option>
-                <option value="art">Art</option>
+                <option value="international">International</option>
             </select>
 
 

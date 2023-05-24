@@ -61,8 +61,23 @@ include 'header.php';
 $db = new Connection();
 $connection = $db->getConnection();
 
+if (isset($_GET['pageno'])) {
+    $start = $_GET['pageno'];
+} else {
+    $start = 0;
+}
+
+$end = 10;
+
+$table = 'projectArticles';
+
 // Retrieve articles from the database in reverse chronological order
 $query = "SELECT * FROM projectArticles where status = 1 ORDER BY publishDate DESC";
+//$start *= $end;
+if (isset($start)) {
+    $query .= ' limit ' . $start . ',' . $end;
+}
+//echo $query;
 $result = mysqli_query($connection, $query);
 
 // Add a horizontal line between articles and the header
@@ -89,6 +104,16 @@ while ($row = mysqli_fetch_assoc($result)) {
     echo "</div>"; // Close the article container
     echo "<hr class='article-divider'>"; // Add a horizontal line between articles
 }
+//pagination
+echo '<table align="center" cellspacing = "2" cellpadding = "4" width="75%"><tr><td>';
+    $pagination = new Pagination();
+    $pagination->totalRecords($table);
+    $pagination->setLimit($end);
+    $pagination->page("", "");
+    echo $pagination->firstBack();
+    echo $pagination->where();
+    echo $pagination->nextLast();
+    echo '</td></tr></table>';
 // Close the main container
 echo "</div>";
 // Close the database connection

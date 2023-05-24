@@ -62,7 +62,7 @@ $db = new Connection();
 $connection = $db->getConnection();
 
 // Retrieve articles from the database in reverse chronological order
-$query = "call GetPoliticsNews()";
+$query = "SELECT * FROM projectArticles where category = 'international' and status = 1 ORDER BY publishDate DESC";
 $result = mysqli_query($connection, $query);
 
 // Add a horizontal line between articles and the header
@@ -94,4 +94,5 @@ echo "</div>";
 // Close the database connection
 mysqli_close($connection);
 ?>
+
 
