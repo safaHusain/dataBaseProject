@@ -1,5 +1,6 @@
 <?php
 include 'header.php';
+echo '*********' . $_SESSION['uid'];
 ?>
 
 <script>

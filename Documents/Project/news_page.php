@@ -30,27 +30,17 @@ if (isset($_GET['article_id'])) {
         echo "<p class='articleNews-body'>$body</p>";
         echo "</div>";
 
-    // Retrieve the article ID from the URL parameter
-if (isset($_GET['article_id'])) {
-    $articleId = $_GET['article_id'];
-
-    // Validate and sanitize the input (e.g., using mysqli_real_escape_string)
-    $articleId = mysqli_real_escape_string($connection, $articleId);
-
-    // Query the database to retrieve the full article based on the article ID
-    $query = "SELECT * FROM projectArticles WHERE articleID = $articleId";
-    $result = mysqli_query($connection, $query);
-
-    if ($row = mysqli_fetch_assoc($result)) {
-        // Display the article content...
-
         // Query the projectMedia table based on the article ID to fetch the associated media files
-        $mediaQuery = "SELECT * FROM projectMedia WHERE article_id = $articleId";
-        $mediaResult = mysqli_query($connection, $mediaQuery);
+        // Use a prepared statement to prevent SQL injection
+        $mediaQuery = "SELECT * FROM projectMedia WHERE article_id = ?";
+        $mediaStmt = mysqli_prepare($connection, $mediaQuery);
+        mysqli_stmt_bind_param($mediaStmt, 'i', $articleId);
+        mysqli_stmt_execute($mediaStmt);
+        $mediaResult = mysqli_stmt_get_result($mediaStmt);
 
         if (mysqli_num_rows($mediaResult) > 0) {
+            echo "<h3 class = 'mediaFiles' >Media Files</h3>";
             echo "<div class='media-section'>";
-            echo "<h3>Media Files</h3>";
 
             // Display each media file
             while ($mediaRow = mysqli_fetch_assoc($mediaResult)) {
@@ -63,13 +53,14 @@ if (isset($_GET['article_id'])) {
 
                 if (strpos($mediaType, 'image') !== false) {
                     // Display an image file
-                    echo "<img src='uploads/$mediaName' alt='$mediaName' class='media-image'>";
+
+                    echo "<div class = 'divImg'><img src='uploads/$mediaName' alt='$mediaName' class='media-image'></div>";
                 } elseif (strpos($mediaType, 'video') !== false) {
                     // Display a video file
-                    echo "<video controls src='uploads/$mediaName' class='media-video'></video>";
+                    echo "<div class = 'divVid'><video controls src='uploads/$mediaName' class='media-video'></video></div>";
                 } elseif (strpos($mediaType, 'audio') !== false) {
                     // Display an audio file
-                    echo "<audio controls src='uploads/$mediaName' class='media-audio'></audio>";
+                    echo "<div class = 'divAud'><audio controls src='uploads/$mediaName' class='media-audio'></audio></div>";
                 }
 
                 echo "</div>";
@@ -80,13 +71,6 @@ if (isset($_GET['article_id'])) {
             echo "<p>No media files found for the specified article.</p>";
         }
 
-        // Display the rest of the article content...
-    } else {
-        echo "Article not found.";
-    }
-} else {
-    echo "Invalid article ID.";
-}
 
 
 
@@ -112,9 +96,36 @@ if (isset($_GET['article_id'])) {
         </form>";
         // Check if the like button is pressed
         if (isset($_POST['likeButton'])) {
+            $userId = $_SESSION['uid'];
+            //if the user us not sighned in 
+            echo '***********userid********';
+            echo $userId;
+            if( $userId == 69)  {
+                // Insert a new like record in the database
+                $insertQuery = "INSERT INTO ProjectLikes (user_id, artical_id) VALUES (?, ?)";
+                $stmt = mysqli_prepare($connection, $insertQuery);
+               // echo   $stmt;
 
-            if ($liked > 0) {
-                $userId = $_SESSION['uid'];
+
+                if ($stmt) {
+                    $userId = $_SESSION['uid']; // Assuming the user ID is 1, replace with your actual user ID
+                    mysqli_stmt_bind_param($stmt, 'ii', $userId, $articleId);
+                    $theckeck = mysqli_stmt_execute($stmt);
+                    mysqli_stmt_close($stmt);
+                    echo  $theckeck;
+
+
+
+                    // Refresh the page to reflect the updated like count
+                    //header("Location: article.php?article_id=$articleId");
+            // *****     //  header("Refresh:0");
+                    // exit();
+                } else {
+                    echo "<p class='error'>Error preparing the uid statement: " . mysqli_error($connection) . "</p>";
+                }
+            }
+            elseif ($liked > 0) {
+                
                 $likeID = "SELECT * FROM `ProjectLikes` WHERE artical_id = $articleId and user_id = $userId";
                 // $linkStmt = mysqli_prepare($connection, $likeID);
                 $theresult = mysqli_query($connection, $likeID);
@@ -163,20 +174,22 @@ if (isset($_GET['article_id'])) {
             }
         }
 
-
+        echo "</div>";
         echo "</div>";
         echo "<br>";
         // Display the comment section
         echo "<div class='comment-section'>";
-        echo "<h3>Comments</h3>";
+        echo "<h3 calss ='divCom' >Comments</h3>";
 
         // Display the comment form
+
         echo "<form class='comment-form' id='comment-form' method='POST'>";
         echo "<input type='hidden' name='article_id' value='$articleId'>";
         echo '<input type="text" id="usernameField" name="username" value="' . (isset($_SESSION['username']) ? $_SESSION['username'] : '') . '" disabled>';
         echo "<textarea id ='txtComment' name='comment' placeholder='Your Comment' required></textarea>";
-        echo "<button type='submit' name='submit-comment'>Submit Comment</button>";
+        echo "<button type='submit' class='submit-comment' name='submit-comment'>Submit Comment</button>";
         echo "</form>";
+
 
         // Check if the form is submitted
         if (isset($_POST['submit-comment'])) {
@@ -220,11 +233,16 @@ if (isset($_GET['article_id'])) {
                 $commentContent = $comment['comment'];
                 $commentTimestamp = $comment['created_at'];
 
+
+
+
+                echo "<div class = 'thecomments'> ";
                 echo "<li class='comment-item'>";
                 echo "<div class='author'>$commentAuthor</div>";
                 echo "<div class='timestamp'>$commentTimestamp</div>";
                 echo "<div class='content'>$commentContent</div>";
                 echo "</li>";
+                echo "</div>";
             }
             echo "</ul>";
         } else {

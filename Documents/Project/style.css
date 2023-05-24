@@ -6,6 +6,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     Created on: May 10, 2023, 5:22:51 PM
     Author: safa
 */
+*{
+  background: #D7D7D9;
+}
 
 /* header div styling */
 #header {
@@ -200,6 +203,9 @@ form .text h3 a:hover {
   margin-right: auto;
   column-count: 3;
   column-gap: 40px;
+  background: #88898C;
+  padding: 2%;
+  margin-top: 2%;
 }
 
 .like-section {
@@ -252,7 +258,6 @@ form .text h3 a:hover {
 .comment-item {
   margin-bottom: 10px;
   padding-bottom: 10px;
-  border-bottom: 1px solid #ccc;
 }
 
 .comment-item .author {
@@ -303,8 +308,29 @@ form .text h3 a:hover {
 
 /* End of like button styling */
 .media-section {
-  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0px 40px;
 }
+
+.mediaFiles{
+  margin-left: 150px;
+  margin-bottom: 20px;
+}
+.divImg{
+  width: 300px;
+  height: 400px;
+  font-size: 5rem;
+  font-weight: 400;
+  margin-left: -358px;
+}
+
+.divImg img{
+  width: 1000px;
+  height: 300px;
+}
+
 
 .media-section h3 {
   font-size: 18px;
@@ -338,3 +364,118 @@ form .text h3 a:hover {
 
 
 /* end of news_page styling */
+
+
+
+
+
+.navbar {
+  display: flex;
+  align-items: center;
+  padding: 0px;
+  background-color: #88898C;
+}
+
+nav {
+  flex: 1;
+  text-align: right;
+  background-color: #88898C;
+}
+
+/*unordered list*/
+nav ul {
+  display: inline-block;
+  list-style-type: none;
+  background-color: #88898C;
+}
+
+/*unordered list*/
+nav ul li {
+  display: inline-block;
+  margin-right: 20px;
+  background-color: #88898C;
+}
+
+/*unordered list link*/
+nav ul li a {
+  color:#000000;
+  background-color: #88898C;
+}
+
+/*hovering*/
+nav ul li:hover {
+  text-shadow: 0 0 5px #594D43;
+}
+
+/*link */
+a {
+  text-decoration: none;
+  color: #3C413D;
+}
+
+
+.comment-section{
+  color: #000000;
+  background: #88898c;
+  padding: 4%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  margin: auto;
+}
+
+.thecomments{
+  background: #88898C;
+}
+
+.comment-section form{
+  background: #88898C;
+}
+.comment-section h3{
+  background: #88898C;
+  font-weight: 500px;
+}
+
+.comment-section input{
+  background: #88898C;
+}
+
+.comment-section textarea{
+  background: #88898C;
+}
+
+.comment-item{
+  background: #88898C;
+}
+
+.comment-item ul{
+  background: #88898C;
+}
+
+.comment-item ul li{
+  background: #88898C;
+}
+.submit-comment {
+  font-family: "Open Sans", sans-serif;
+  font-size: 16px;
+  letter-spacing: 2px;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #000;
+  cursor: pointer;
+  border: 3px solid;
+  padding: 0.25em 0.5em;
+  box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px, 5px 5px 0px 0px;
+  position: relative;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  margin-top: 2%;
+}
+
+.submit-comment:active {
+  box-shadow: 0px 0px 0px 0px;
+  top: 5px;
+  left: 5px;
+}
