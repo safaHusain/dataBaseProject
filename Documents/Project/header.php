@@ -1,8 +1,5 @@
 <?php
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHP.php to edit this template
- */
+
 include 'debugging.php';
 if (!isset($_SESSION['uid'])) {
   echo '**************text***************';
@@ -30,7 +27,7 @@ if (!isset($_SESSION['uid'])) {
 
     <!--logo image linked to the home page-->
     <div class="logo">
-      <a href="index.php"> <img src="images/zoro.png" width="170" height="150" alt="Logo" /> </a>
+      <a href="index.php"> <img src="images/NewsPaper.png" width="170" height="150" alt="Logo" /> </a>
     </div>
 
     <nav>
@@ -42,11 +39,7 @@ if (!isset($_SESSION['uid'])) {
 
           <li><a href="login.php">Login</a></li>
         <?php } ?>
-        <h1>Online newspaper</h1>
-        <br>
-        <p>
-          <a href="index.php" class="links">Home</a> <span class="bar">|</span>
-
+        
 
 
           <?php if (isset($_SESSION['uid']) && $_SESSION['uid'] != 69) {  ?>
@@ -58,18 +51,18 @@ if (!isset($_SESSION['uid'])) {
           <?php } ?>
 
           <?php if (isset($_SESSION['role']) && ($_SESSION['role']) == "admin") { ?>
-            <a href="admin_panel.php" class="links">Admin panel</a> <span class="bar">|</span>
+            <li><a href="admin_panel.php" >Admin panel</a></li>
           <?php } ?>
 
           <?php if (isset($_SESSION['role']) && ($_SESSION['role']) == "author") { ?>
-            <a href="author_panel.php" class="links">Author panel</a> <span class="bar">|</span>
+            <li><a href="author_panel.php" >Author panel</a></li>
           <?php } ?>
 
-          <a href="politics_page.php" class="links">Politics</a> <span class="bar">|</span>
-          <a href="business_page.php" class="links">Business</a> <span class="bar">|</span>
-          <a href="sports_page.php" class="links">Sports</a> <span class="bar">|</span>
+          <li><a href="politics_page.php" >Politics</a></li> 
+          <li><a href="business_page.php" >Business</a></li> 
+          <li><a href="sports_page.php" >Sports</a></li> 
           <!--<a href="art_page.php" class="links">Art</a> <span class="bar">|</span>-->
-          <a href="international_page.php" class="links">International</a> <span class="bar">|</span>
+          <li><a href="international_page.php" >International</a></li> 
 
 
         </p>
