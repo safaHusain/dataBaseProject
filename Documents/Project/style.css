@@ -1,13 +1,5 @@
-/*
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
-*/
-/* 
-    Created on: May 10, 2023, 5:22:51 PM
-    Author: safa
-*/
-*{
-  background: #D7D7D9;
+* {
+  background: #d7d7d9;
 }
 
 /* header div styling */
@@ -65,7 +57,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
   position: relative;
   max-width: 430px;
   width: 100%;
-  background: #fff;
+  background: #88898c;
   padding: 34px;
   border-radius: 6px;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
@@ -123,9 +115,13 @@ form h3 {
   font-weight: 500;
   margin-left: 10px;
 }
+.login_form .loginTitle {
+  background-color: #707070;
+}
 
 .input-box.button input {
   color: #fff;
+  background-color: #707070;
   letter-spacing: 1px;
   border: none;
   background: #4070f4;
@@ -138,6 +134,8 @@ form h3 {
 
 form .text h3 {
   color: #333;
+  background-color: #707070;
+
   width: 100%;
   text-align: center;
 }
@@ -203,7 +201,7 @@ form .text h3 a:hover {
   margin-right: auto;
   column-count: 3;
   column-gap: 40px;
-  background: #88898C;
+  background: #88898c;
   padding: 2%;
   margin-top: 2%;
 }
@@ -236,6 +234,10 @@ form .text h3 a:hover {
 
 .comment-section {
   margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: column;
 }
 
 .comment-form {
@@ -314,11 +316,11 @@ form .text h3 a:hover {
   gap: 0px 40px;
 }
 
-.mediaFiles{
+.mediaFiles {
   margin-left: 150px;
   margin-bottom: 20px;
 }
-.divImg{
+.divImg {
   width: 300px;
   height: 400px;
   font-size: 5rem;
@@ -326,11 +328,10 @@ form .text h3 a:hover {
   margin-left: -358px;
 }
 
-.divImg img{
+.divImg img {
   width: 1000px;
   height: 300px;
 }
-
 
 .media-section h3 {
   font-size: 18px;
@@ -362,59 +363,53 @@ form .text h3 a:hover {
   width: 100%;
 }
 
-
 /* end of news_page styling */
-
-
-
-
 
 .navbar {
   display: flex;
   align-items: center;
   padding: 0px;
-  background-color: #88898C;
+  background-color: #88898c;
 }
 
 nav {
   flex: 1;
   text-align: right;
-  background-color: #88898C;
+  background-color: #88898c;
 }
 
 /*unordered list*/
 nav ul {
   display: inline-block;
   list-style-type: none;
-  background-color: #88898C;
+  background-color: #88898c;
 }
 
 /*unordered list*/
 nav ul li {
   display: inline-block;
   margin-right: 20px;
-  background-color: #88898C;
+  background-color: #88898c;
 }
 
 /*unordered list link*/
 nav ul li a {
-  color:#000000;
-  background-color: #88898C;
+  color: #000000;
+  background-color: #88898c;
 }
 
 /*hovering*/
 nav ul li:hover {
-  text-shadow: 0 0 5px #594D43;
+  text-shadow: 0 0 5px #594d43;
 }
 
 /*link */
 a {
   text-decoration: none;
-  color: #3C413D;
+  color: #3c413d;
 }
 
-
-.comment-section{
+.comment-section {
   color: #000000;
   background: #88898c;
   padding: 4%;
@@ -425,36 +420,36 @@ a {
   margin: auto;
 }
 
-.thecomments{
-  background: #88898C;
+.thecomments {
+  background: #88898c;
 }
 
-.comment-section form{
-  background: #88898C;
+.comment-section form {
+  background: #88898c;
 }
-.comment-section h3{
-  background: #88898C;
+.comment-section h3 {
+  background: #88898c;
   font-weight: 500px;
 }
 
-.comment-section input{
-  background: #88898C;
+.comment-section input {
+  background: #88898c;
 }
 
-.comment-section textarea{
-  background: #88898C;
+.comment-section textarea {
+  background: #88898c;
 }
 
-.comment-item{
-  background: #88898C;
+.comment-item {
+  background: #88898c;
 }
 
-.comment-item ul{
-  background: #88898C;
+.comment-item ul {
+  background: #88898c;
 }
 
-.comment-item ul li{
-  background: #88898C;
+.comment-item ul li {
+  background: #88898c;
 }
 .submit-comment {
   font-family: "Open Sans", sans-serif;
@@ -466,7 +461,8 @@ a {
   cursor: pointer;
   border: 3px solid;
   padding: 0.25em 0.5em;
-  box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px, 5px 5px 0px 0px;
+  box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px,
+    5px 5px 0px 0px;
   position: relative;
   user-select: none;
   -webkit-user-select: none;
