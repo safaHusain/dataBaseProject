@@ -141,7 +141,7 @@ class Articles {
 
         $data = $db->singleFetch("select articleID from projectArticles where text = '$this->text'");
         $article_id = $data->articleID;
-        echo 'article id ' . $article_id;
+        //echo 'article id ' . $article_id;
         return $article_id;
     }
 

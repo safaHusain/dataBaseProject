@@ -14,7 +14,7 @@ if (isset($_GET['article_id'])) {
     $article_id = $_POST['article_id'];
 }
 
-echo $article_id;
+//echo $article_id;
 ?>
 
 <style>
