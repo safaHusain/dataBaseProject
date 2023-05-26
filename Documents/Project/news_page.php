@@ -1,5 +1,4 @@
 <?php
-
 include 'header.php';
 
 $db = new Connection();
@@ -39,7 +38,7 @@ if (isset($_GET['article_id'])) {
         $mediaResult = mysqli_stmt_get_result($mediaStmt);
 
         if (mysqli_num_rows($mediaResult) > 0) {
-            echo "<h3 class = 'mediaFiles' >Media Files</h3>";
+            echo "<h3 class='mediaFiles'>Media Files</h3>";
             echo "<div class='media-section'>";
 
             // Display each media file
@@ -53,14 +52,13 @@ if (isset($_GET['article_id'])) {
 
                 if (strpos($mediaType, 'image') !== false) {
                     // Display an image file
-
-                    echo "<div class = 'divImg'><img src='uploads/$mediaName' alt='$mediaName' class='media-image'></div>";
+                    echo "<div class='divImg'><img src='uploads/$mediaName' alt='$mediaName' class='media-image'></div>";
                 } elseif (strpos($mediaType, 'video') !== false) {
                     // Display a video file
-                    echo "<div class = 'divVid'><video controls src='uploads/$mediaName' class='media-video'></video></div>";
+                    echo "<div class='divVid'><video controls src='uploads/$mediaName' class='media-video'></video></div>";
                 } elseif (strpos($mediaType, 'audio') !== false) {
                     // Display an audio file
-                    echo "<div class = 'divAud'><audio controls src='uploads/$mediaName' class='media-audio'></audio></div>";
+                    echo "<div class='divAud'><audio controls src='uploads/$mediaName' class='media-audio'></audio></div>";
                 }
 
                 echo "</div>";
@@ -71,15 +69,39 @@ if (isset($_GET['article_id'])) {
             echo "<p>No media files found for the specified article.</p>";
         }
 
+        // Query the projectDownloads table based on the article ID to fetch the downloadable files
+        // Use a prepared statement to prevent SQL injection
+        $downloadsQuery = "SELECT * FROM projectDownloads WHERE article_id = ?";
+        $downloadsStmt = mysqli_prepare($connection, $downloadsQuery);
+        mysqli_stmt_bind_param($downloadsStmt, 'i', $articleId);
+        mysqli_stmt_execute($downloadsStmt);
+        $downloadsResult = mysqli_stmt_get_result($downloadsStmt);
 
+        if (mysqli_num_rows($downloadsResult) > 0) {
+            echo "<h3 class='downloadFiles'>Downloadable Files</h3>";
+            echo "<div class='download-section'>";
 
+            // Display each downloadable file
+            while ($downloadRow = mysqli_fetch_assoc($downloadsResult)) {
+                $downloadName = $downloadRow['name'];
+                $downloadUrl = $downloadRow['url'];
 
+                // Display the download link
+                echo "<div class='download-file'>";
+                echo "<a href='uploads/$downloadUrl' class='download-link'>$downloadName</a>";
+                echo "</div>";
+            }
+
+            echo "</div>";
+        } else {
+            echo "<p>No downloadable files found for the specified article.</p>";
+        }
 
         // Display the thumbs-up button and count
         // Check if the user has already liked the article
         $sessionid = $_SESSION['uid'];
         $query = "SELECT COUNT(*) AS liked FROM ProjectLikes WHERE artical_id = $articleId and user_id = $sessionid";
-        $allLikeQry = "SELECT COUNT(*) AS liked FROM ProjectLikes WHERE artical_id = $articleId  ";
+        $allLikeQry = "SELECT COUNT(*) AS liked FROM ProjectLikes WHERE artical_id = $articleId";
         $result = mysqli_query($connection, $query);
         $theresult = mysqli_query($connection, $allLikeQry);
         $row = mysqli_fetch_assoc($result);
@@ -90,42 +112,34 @@ if (isset($_GET['article_id'])) {
         echo "<div class='like-count'>Likes: <span id='like-count'>$theliked</span></i>";
         $liked = $row['liked'];
         echo "<form method='post'>
-        <button name ='likeButton' type= 'submit' id='likeButton' value='like'><i class='fa-solid fa-thumbs-up' id='like-btn' data-article-id='$articleId'>&#128077;
-
-        </button>
+        <button name='likeButton' type='submit' id='likeButton' value='like'><i class='fa-solid fa-thumbs-up' id='like-btn' data-article-id='$articleId'>&#128077;</button>
         </form>";
         // Check if the like button is pressed
         if (isset($_POST['likeButton'])) {
             $userId = $_SESSION['uid'];
-            //if the user us not sighned in 
+            //if the user is not signed in
             echo '***********userid********';
             echo $userId;
-            if( $userId == 69)  {
+            if ($userId == 69) {
                 // Insert a new like record in the database
                 $insertQuery = "INSERT INTO ProjectLikes (user_id, artical_id) VALUES (?, ?)";
                 $stmt = mysqli_prepare($connection, $insertQuery);
-               // echo   $stmt;
-
 
                 if ($stmt) {
                     $userId = $_SESSION['uid']; // Assuming the user ID is 1, replace with your actual user ID
                     mysqli_stmt_bind_param($stmt, 'ii', $userId, $articleId);
                     $theckeck = mysqli_stmt_execute($stmt);
                     mysqli_stmt_close($stmt);
-                    echo  $theckeck;
-
-
+                    echo $theckeck;
 
                     // Refresh the page to reflect the updated like count
                     //header("Location: article.php?article_id=$articleId");
-            // *****     //  header("Refresh:0");
+                    //  header("Refresh:0");
                     // exit();
                 } else {
                     echo "<p class='error'>Error preparing the uid statement: " . mysqli_error($connection) . "</p>";
                 }
-            }
-            elseif ($liked > 0) {
-                
+            } elseif ($liked > 0) {
                 $likeID = "SELECT * FROM `ProjectLikes` WHERE artical_id = $articleId and user_id = $userId";
                 // $linkStmt = mysqli_prepare($connection, $likeID);
                 $theresult = mysqli_query($connection, $likeID);
@@ -160,9 +174,6 @@ if (isset($_GET['article_id'])) {
                     mysqli_stmt_bind_param($stmt, 'ii', $userId, $articleId);
                     mysqli_stmt_execute($stmt);
                     mysqli_stmt_close($stmt);
-
-
-
 
                     // Refresh the page to reflect the updated like count
                     //header("Location: article.php?article_id=$articleId");
@@ -216,48 +227,52 @@ if (isset($_GET['article_id'])) {
 
                 // Close the statement
                 mysqli_stmt_close($stmt);
+
+                // Refresh the page to show the new comment
+                // header("Location: article.php?article_id=$articleId");
+                // exit();
             } else {
-                echo "<p class='error'>Error preparing the x statement: " . mysqli_error($connection) . "</p>";
+                echo "<p class='error'>Error preparing the insert statement: " . mysqli_error($connection) . "</p>";
             }
         }
 
-        // Fetch and display the comments for the article
-        $query = "SELECT * FROM ProjectComments WHERE article_id = $articleId ORDER BY created_at DESC";
-        $result = mysqli_query($connection, $query);
+        // Display the existing comments for the article
+        $commentQuery = "SELECT * FROM ProjectComments WHERE article_id = $articleId ORDER BY created_at DESC";
+        $commentResult = mysqli_query($connection, $commentQuery);
 
-        if (mysqli_num_rows($result) > 0) {
+        if (mysqli_num_rows($commentResult) > 0) {
             echo "<ul class='comment-list'>";
-            while ($comment = mysqli_fetch_assoc($result)) {
-                $commentId = $comment['id'];
-                $commentAuthor = $comment['author'];
-                $commentContent = $comment['comment'];
-                $commentTimestamp = $comment['created_at'];
 
+            while ($commentRow = mysqli_fetch_assoc($commentResult)) {
+                $commentAuthor = $commentRow['author'];
+                $commentContent = $commentRow['comment'];
+                $commentCreatedAt = $commentRow['created_at'];
 
-
-
-                echo "<div class = 'thecomments'> ";
-                echo "<li class='comment-item'>";
-                echo "<div class='author'>$commentAuthor</div>";
-                echo "<div class='timestamp'>$commentTimestamp</div>";
-                echo "<div class='content'>$commentContent</div>";
+                echo "<li class='comment'>";
+                echo "<p class='comment-meta'>Comment by $commentAuthor on $commentCreatedAt</p>";
+                echo "<p class='comment-content'>$commentContent</p>";
                 echo "</li>";
-                echo "</div>";
             }
+
             echo "</ul>";
         } else {
-            echo "No comments found.";
+            echo "<p>No comments found for this article.</p>";
         }
 
         echo "</div>";
+
+        mysqli_free_result($result);
+        mysqli_free_result($mediaResult);
+        mysqli_free_result($downloadsResult);
+        mysqli_free_result($commentResult);
     } else {
-        echo "Article not found.";
+        echo "<p>No article found with the specified ID.</p>";
     }
+
+    mysqli_close($connection);
 } else {
-    echo "Invalid article ID.";
+    echo "<p>No article ID specified.</p>";
 }
 
-// Close the database connection
-mysqli_close($connection);
-
 include 'footer.php';
+?>
