@@ -2,6 +2,28 @@
 include 'header.php';
 ?>
 
+<style>
+    .styled-select {
+  height: 100%;
+  width: 100%;
+  outline: none;
+  font-size: 17px;
+  font-weight: 400;
+  color: #333;
+  border: 1.5px solid #c7bebe;
+  border-bottom-width: 2.5px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  padding: 0 15px;
+  background-color: #fff;
+}
+
+.styled-select:focus {
+  border-color: #4070f4;
+}
+
+</style>
+
 <script>
             function isValid(obj){
                 var errField = obj.id + 'Err';
@@ -55,6 +77,13 @@ include 'header.php';
                 <input type="password" id="Password" name="Password" placeholder="Create password" autofocus onblur="isValid(this);" required>
                 <Label id = "PasswordErr" style="color:red">
             </div>
+            <div class="input-box">
+            <select id="role" name="role" class="styled-select">
+                <option value="user">Reader</option>
+                <option value="author">Author</option>
+            </select>
+
+            </div>
             <div class="input-box button">
                 <input type="Submit" id="sub" name="submitted" value="Register Now" disabled>
             </div>
@@ -75,6 +104,7 @@ if (isset($_POST['submitted'])) {
     $user->setEmail(trim($_POST['Email']));
     $user->setPassword(trim($_POST['Password']));
     $user->setUsername(trim($_POST['UserName']));
+    $user->setRole($_POST['role']);
 
     if ($user->initWithUsername()) {
         if ($user->registerUser()) {
