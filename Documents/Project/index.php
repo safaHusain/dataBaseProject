@@ -54,6 +54,52 @@ include 'header.php';
         padding-top:30px;
         margin-left: 30px;
     }
+
+    .container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.pagination-table {
+  margin: 0 auto;
+  width: 75%;
+  border-collapse: collapse;
+}
+
+.pagination-table tr:nth-child(even) {
+  background-color: #f5f5f5;
+}
+
+.pagination-table th,
+.pagination-table td {
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+.pagination-table th {
+  background-color: #f5f5f5;
+  font-weight: bold;
+}
+
+.pagination-link {
+  display: inline-block;
+  padding: 5px 10px;
+  margin-right: 5px;
+  background-color: #f5f5f5;
+  color: #333;
+  text-decoration: none;
+}
+
+.pagination-link:hover {
+  text-decoration: underline;
+}
+
+.current-page {
+  font-weight: bold;
+  background-color: #ccc;
+}
+
+    
 </style>
 
 <?php
@@ -105,15 +151,25 @@ while ($row = mysqli_fetch_assoc($result)) {
     echo "<hr class='article-divider'>"; // Add a horizontal line between articles
 }
 //pagination
-echo '<table align="center" cellspacing = "2" cellpadding = "4" width="75%"><tr><td>';
-    $pagination = new Pagination();
-    $pagination->totalRecords($table);
-    $pagination->setLimit($end);
-    $pagination->page("", "");
-    echo $pagination->firstBack();
-    echo $pagination->where();
-    echo $pagination->nextLast();
-    echo '</td></tr></table>';
+echo '<div class="container">';
+
+echo '<table class="pagination-table">';
+echo '<tr><td>';
+
+$pagination = new Pagination();
+$pagination->totalRecords($table);
+$pagination->setLimit($end);
+$pagination->page("", "");
+echo $pagination->firstBack();
+echo $pagination->where();
+echo $pagination->nextLast();
+
+
+echo '</td></tr>';
+echo '</table>';
+
+// Close the container
+echo "</div>";
 // Close the main container
 echo "</div>";
 // Close the database connection
