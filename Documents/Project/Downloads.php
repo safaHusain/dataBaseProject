@@ -100,12 +100,22 @@ class Downloads {
         $query = "INSERT INTO projectDownloads (article_id, name, type, size) "
                 . "VALUES ('$this->articleId', '$this->name', '$this->type', '$this->size')";
 
+                try{
+                    $db->querySQL($query);
+                    return true;
+                }catch(Exception $ex){
+                    echo 'error: ' . $ex;
+                    return false;
+                }
+
+        /*        
         if ($db->querySQL($query)) {
             return true;
         } else {
             echo "Error: " . $query . "<br>" . $this->dbc->error;
             return false;
         }
+        */
     }
     
     public function updateDownloadable() {
@@ -114,12 +124,22 @@ class Downloads {
                 . " where article_id = '$this->articleId'";
         //echo $query;
 
+        try{
+            $db->querySQL($query);
+            return true;
+        }catch(Exception $ex){
+            echo 'error: ' . $ex;
+            return false;
+        }
+
+        /*
         if ($db->querySQL($query)) {
             return true;
         } else {
             echo "Error: " . $query . "<br>" . $this->dbc->error;
             return false;
         }
+        */
     }
 
     public function deleteDownload() {
