@@ -98,12 +98,22 @@ class Media {
         $query = "INSERT INTO projectMedia (article_id, name, type, size) "
                 . "VALUES ('$this->articleId', '$this->name', '$this->type', '$this->size')";
 
+                try{
+                    $db->querySQL($query);
+                    return true;
+                }catch(Exception $ex){
+                    echo 'error: ' . $ex;
+                    return false;
+                }
+
+        /*        
         if ($db->querySQL($query)) {
             return true;
         } else {
             echo "Error: " . $query . "<br>" . $this->dbc->error;
             return false;
         }
+        */
     }
 
     public function updateMedia() {
@@ -112,12 +122,22 @@ class Media {
                 . " where article_id = '$this->articleId'";
         //echo $query;
 
+        try{
+            $db->querySQL($query);
+            return true;
+        }catch(Exception $ex){
+            echo 'error: ' . $ex;
+            return false;
+        }
+
+        /*
         if ($db->querySQL($query)) {
             return true;
         } else {
             echo "Error: " . $query . "<br>" . $this->dbc->error;
             return false;
         }
+        */
     }
 
     public function deleteMedia() {
