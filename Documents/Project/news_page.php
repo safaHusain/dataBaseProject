@@ -83,12 +83,12 @@ if (isset($_GET['article_id'])) {
 
             // Display each downloadable file
             while ($downloadRow = mysqli_fetch_assoc($downloadsResult)) {
-                $downloadName = $downloadRow['name'];
-                $downloadUrl = $downloadRow['url'];
+                $filename = $downloadRow['name'];
+                $filepath = 'uploads/' . $filename;
 
                 // Display the download link
                 echo "<div class='download-file'>";
-                echo "<a href='uploads/$downloadUrl' class='download-link'>$downloadName</a>";
+                echo "<a href='download.php?file=$filename' class='download-link'>Click Here</a>";
                 echo "</div>";
             }
 
@@ -96,6 +96,8 @@ if (isset($_GET['article_id'])) {
         } else {
             echo "<p>No downloadable files found for the specified article.</p>";
         }
+
+
 
         // Display the thumbs-up button and count
         // Check if the user has already liked the article
@@ -275,4 +277,3 @@ if (isset($_GET['article_id'])) {
 }
 
 include 'footer.php';
-?>

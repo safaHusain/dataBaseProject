@@ -1,19 +1,25 @@
 <?php
-if (isset($_GET['file'])) {
-    $filePath = $_GET['file'];
-
-    if (file_exists($filePath)) {
-        // Set the appropriate headers for the file download
-        header("Content-Type: application/octet-stream");
-        header("Content-Transfer-Encoding: Binary");
-        header("Content-Disposition: attachment; filename=\"" . basename($filePath) . "\"");
-
-        // Read the file and output it to the user
-        readfile($filePath);
-    } else {
-        echo "File not found.";
+$filename = $_GET['file'];
+$filepath = 'uploads/' . $filename;
+echo $filename;
+echo '<br>';
+echo $filepath;
+echo '<br>';
+if (!empty($filename) && file_exists($filepath)) {
+    // Define Headers
+    if (!empty($filename) && file_exists($filepath)) {
+        header('Content-Description: File Transfer');
+        header('Content-Type: application/octet-stream');
+        header('Content-Disposition: attachment; filename=' . basename($filepath));
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate');
+        header('Pragma: public');
+        header('Content-Length: ' . filesize($filepath));
+        ob_clean();
+        flush();
+        readfile($filepath);
+        exit;
     }
 } else {
-    echo "Invalid file path.";
+    echo "File not found.";
 }
-?>
