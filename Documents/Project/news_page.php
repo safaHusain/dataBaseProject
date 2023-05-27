@@ -1,3 +1,46 @@
+<head>
+    <!-- Your head code here -->
+</head>
+<body>
+    <?php
+    // Your PHP code here
+    ?>
+
+    <div class="bigdiv">
+        <!-- Your HTML code here -->
+
+        <div class="like-button">
+            <h3 class="likeTit">likes</h3>
+            <form method="post" id="likeForm" action="">
+                <button name="likeButton" type="submit" id="likeButton" value="like"><i class="fa-solid fa-thumbs-up" id="like-btn" data-article-id="<?php echo $articleId; ?>">&#128077;</i></button>
+            </form>
+            <div class="like-count" id="likebuttonid"><span id="like-count">Likes: <?php echo $theliked; ?></span></div>
+        </div>
+
+        <!-- Rest of your HTML code -->
+    </div>
+
+    <script>
+        // Add an event listener to the thumbs-up button
+        var likeButton = document.getElementById("likeButton");
+        likeButton.addEventListener("click", updateLikesCount);
+
+        function updateLikesCount(event) {
+            event.preventDefault();
+
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.open("GET", "updateLikes.php", true);
+            xmlhttp.onreadystatechange = function() {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                    var likesContainer = document.getElementById("likebuttonid");
+                    likesContainer.innerHTML = xmlhttp.responseText;
+                }
+            };
+            xmlhttp.send();
+        }
+    </script>
+</body>
+
 <?php
 include 'header.php';
 
@@ -22,13 +65,13 @@ if (isset($_GET['article_id'])) {
         $publishedBy = $row['publishedBy'];
         $publishDate = $row['publishDate'];
 
-        // Display the full article
+        //Display the full article
         echo "<div class='article'>";
         echo "<h2 class='articleNews-title'>$title</h2>";
         echo "<p class='articleNews-meta'>$category - Published by $publishedBy on $publishDate</p>";
         echo "<p class='articleNews-body'>$body</p>";
         echo "</div>";
-        //echo "</div>";
+        echo "</div>";
 
         // Query the projectMedia table based on the article ID to fetch the associated media files
         // Use a prepared statement to prevent SQL injection
@@ -110,11 +153,11 @@ if (isset($_GET['article_id'])) {
         echo '<div class="bigdiv">';
         echo "<div class='like-button'>";
         echo "<h3 class='likeTit'>likes</h3>";
-        echo "<form method='post'>
+        echo "<form method='post' id ='likeForm' action=''>
     <button name='likeButton' type='submit' id='likeButton' value='like'><i class='fa-solid fa-thumbs-up' id='like-btn' data-article-id='$articleId'>&#128077;</i></button>
 </form>";
 
-        echo "<div class='like-count'><span id='like-count'>Likes: $theliked</span></div>";
+        echo "<div class='like-count' id ='likebuttonid'><span id='like-count'>Likes: $theliked</span></div>";
         $liked = $row['liked'];
 
         // Check if the like button is pressed
@@ -132,7 +175,7 @@ if (isset($_GET['article_id'])) {
 
                 if ($deleteResult) {
                     // Refresh the page to reflect the updated like count
-                    header("Refresh:0");
+                    // header("Refresh:0");
                 } else {
                     echo "<p class='error'>Error unliking the article: " . mysqli_error($connection) . "</p>";
                 }
@@ -149,7 +192,7 @@ if (isset($_GET['article_id'])) {
 
                         if ($insertResult) {
                             // Refresh the page to reflect the updated like count
-                            header("Refresh:0");
+                            //header("Refresh:0");
                         } else {
                             echo "<p class='error'>Error liking the article: " . mysqli_error($connection) . "</p>";
                         }
@@ -168,7 +211,7 @@ if (isset($_GET['article_id'])) {
 
                         if ($insertResult) {
                             // Refresh the page to reflect the updated like count
-                            header("Refresh:0");
+                            //header("Refresh:0");
                         } else {
                             echo "<p class='error'>Error liking the article: " . mysqli_error($connection) . "</p>";
                         }
