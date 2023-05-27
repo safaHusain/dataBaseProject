@@ -2,7 +2,7 @@
 
 include 'debugging.php';
 if (!isset($_SESSION['uid'])) {
-  echo '**************text***************';
+  //echo '**************text***************';
   $_SESSION['uid'] = 69;
 }
 
