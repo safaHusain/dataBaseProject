@@ -206,34 +206,31 @@ form .text h3 a:hover {
   margin-top: 2%;
 }
 
-.like-section {
+.like-button {
+  width: 40%;
+  margin-right: 50px;
+  background: #88898c;
+  height: 300px;
   display: flex;
   align-items: center;
-  margin-bottom: 10px;
+  justify-content: space-around;
+  flex-direction: column;
 }
 
-.like-button {
-  background-color: transparent;
-  color: #ba001f;
-  border: none;
-  padding: 0;
-  font-size: 14px;
-  cursor: pointer;
-  transition: color 0.3s ease;
+.like-count{
+  background: #88898c;
 }
-
-.like-button:hover {
-  color: #910018;
+.like-count span{
+  font-size: 18px;
+  color: #000000;
+  background: #88898c;
 }
-
-.like-count {
-  margin-left: 5px;
-  font-size: 14px;
-  color: #888;
+.bigdiv form{
+  background: #88898c;
 }
-
 .comment-section {
   margin-bottom: 20px;
+  width: 40%;
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -255,6 +252,7 @@ form .text h3 a:hover {
   list-style-type: none;
   margin: 0;
   padding: 0;
+  background-color: #88898c;
 }
 
 .comment-item {
@@ -311,9 +309,13 @@ form .text h3 a:hover {
 /* End of like button styling */
 .media-section {
   display: flex;
+  width: 80%;
+  padding: 3%;
+  box-shadow: 20px 20px 50px 15px grey;
+  margin-bottom: 100px;
   justify-content: center;
   align-items: center;
-  gap: 0px 40px;
+  margin-left: 144px;
 }
 
 .mediaFiles {
@@ -418,6 +420,7 @@ a {
   align-items: center;
   width: 80%;
   margin: auto;
+  margin-bottom: 70px;
 }
 
 .thecomments {
@@ -429,7 +432,7 @@ a {
 }
 .comment-section h3 {
   background: #88898c;
-  font-weight: 500px;
+  font-size: 35px;
 }
 
 .comment-section input {
@@ -467,11 +470,92 @@ a {
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
-  margin-top: 2%;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  margin-left: 290px;
 }
 
 .submit-comment:active {
   box-shadow: 0px 0px 0px 0px;
   top: 5px;
   left: 5px;
+}
+
+.comment-content {
+  background-color: #686b72;
+  padding-bottom: 4%;
+  padding-left: 4%;
+  padding-right: 4%;
+  padding-top: 4%;
+  margin-bottom: 7%;
+  color: #d7d7d9;
+}
+.comment-meta {
+  padding-top: 4%;
+  padding-left: 4%;
+  padding-right: 4%;
+  background-color: #686b72;
+}
+
+
+.comment-form textarea {
+  font-family: "Open Sans", sans-serif;
+  width: 50%;
+  height: 100px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  resize: none;
+}
+  
+#likeButton {
+  font-family: "Open Sans", sans-serif;
+  font-size: 16px;
+  letter-spacing: 2px;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #000;
+  cursor: pointer;
+  border: 3px solid;
+  padding: 0.25em 0.5em;
+  box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px,
+    5px 5px 0px 0px;
+  position: relative;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+#likeButton:active {
+  box-shadow: 0px 0px 0px 0px;
+  top: 5px;
+  left: 5px;
+}
+.bigdiv{
+  display: flex;
+  width: 80%;
+    margin: 0 auto;
+    padding: 3%;
+    box-shadow: 20px 20px 50px 15px grey;
+}
+
+.like-button h3{
+  background: #88898c;
+  font-size: 35px;
+}
+
+.media-audio {
+  Add your desired styles here /
+  width: 100%;
+  max-width: 400px;
+  margin-bottom: 10px;
+}
+
+.divAud {
+  / Add your desired styles here 
+  background-color: #f2f2f2;
+  padding: 10px;
+  border-radius: 4px;
 }
