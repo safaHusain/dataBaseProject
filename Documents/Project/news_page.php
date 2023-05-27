@@ -80,7 +80,7 @@ if (isset($_GET['article_id'])) {
 
                 // Display the media file based on its type
                 echo "<div class='media-file'>";
-                echo "<h4>$mediaName</h4>";
+                //echo "<h4>$mediaName</h4>";
 
                 if (strpos($mediaType, 'image') !== false) {
                     // Display an image file

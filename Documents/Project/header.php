@@ -1,7 +1,6 @@
 <?php
 
 include 'debugging.php';
-echo 'jdnjdanbsjbdjbjabjkdbkjabdjbdjbabjkdjabajbdsjkabbjdbadsjsdb';
 if (!isset($_SESSION['uid'])) {
   echo '**************text***************';
   $_SESSION['uid'] = 69;
