@@ -1,24 +1,4 @@
 <head>
-    <!-- Your head code here -->
-</head>
-<body>
-    <?php
-    // Your PHP code here
-    ?>
-
-    <div class="bigdiv">
-        <!-- Your HTML code here -->
-
-        <div class="like-button">
-            <h3 class="likeTit">likes</h3>
-            <form method="post" id="likeForm" action="">
-                <button name="likeButton" type="submit" id="likeButton" value="like"><i class="fa-solid fa-thumbs-up" id="like-btn" data-article-id="<?php echo $articleId; ?>">&#128077;</i></button>
-            </form>
-            <div class="like-count" id="likebuttonid"><span id="like-count">Likes: <?php echo $theliked; ?></span></div>
-        </div>
-
-        <!-- Rest of your HTML code -->
-    </div>
 
     <script>
         // Add an event listener to the thumbs-up button
@@ -26,21 +6,29 @@
         likeButton.addEventListener("click", updateLikesCount);
 
         function updateLikesCount(event) {
+            // Prevent the default behavior (page reload)
             event.preventDefault();
 
+            // Create the AJAX request object
             var xmlhttp = new XMLHttpRequest();
+
+            // Specify the request method and URL
             xmlhttp.open("GET", "updateLikes.php", true);
+
+            // Declare a function that is called when something happens to the request
             xmlhttp.onreadystatechange = function() {
                 if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                    // Update the likes count
                     var likesContainer = document.getElementById("likebuttonid");
                     likesContainer.innerHTML = xmlhttp.responseText;
                 }
             };
+
+            // Send the request
             xmlhttp.send();
         }
     </script>
-</body>
-
+</head>
 <?php
 include 'header.php';
 
