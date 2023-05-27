@@ -28,6 +28,7 @@ if (isset($_GET['article_id'])) {
         echo "<p class='articleNews-meta'>$category - Published by $publishedBy on $publishDate</p>";
         echo "<p class='articleNews-body'>$body</p>";
         echo "</div>";
+        //echo "</div>";
 
         // Query the projectMedia table based on the article ID to fetch the associated media files
         // Use a prepared statement to prevent SQL injection
@@ -95,14 +96,10 @@ if (isset($_GET['article_id'])) {
             echo "</div>";
         } else {
             echo "<p>No downloadable files found for the specified article.</p>";
-        }
-
-
-
-        // Display the thumbs-up button and count
+        } // Display the thumbs-up button and count
         // Check if the user has already liked the article
         $sessionid = $_SESSION['uid'];
-        $query = "SELECT COUNT(*) AS liked FROM ProjectLikes WHERE artical_id = $articleId and user_id = $sessionid";
+        $query = "SELECT COUNT(*) AS liked FROM ProjectLikes WHERE artical_id = $articleId AND user_id = $sessionid";
         $allLikeQry = "SELECT COUNT(*) AS liked FROM ProjectLikes WHERE artical_id = $articleId";
         $result = mysqli_query($connection, $query);
         $theresult = mysqli_query($connection, $allLikeQry);
@@ -110,89 +107,87 @@ if (isset($_GET['article_id'])) {
         $therow = mysqli_fetch_assoc($theresult);
 
         $theliked = $therow['liked'];
+        echo '<div class="bigdiv">';
         echo "<div class='like-button'>";
-        echo "<div class='like-count'>Likes: <span id='like-count'>$theliked</span></i>";
-        $liked = $row['liked'];
+        echo "<h3 class='likeTit'>likes</h3>";
         echo "<form method='post'>
-        <button name='likeButton' type='submit' id='likeButton' value='like'><i class='fa-solid fa-thumbs-up' id='like-btn' data-article-id='$articleId'>&#128077;</button>
-        </form>";
+    <button name='likeButton' type='submit' id='likeButton' value='like'><i class='fa-solid fa-thumbs-up' id='like-btn' data-article-id='$articleId'>&#128077;</i></button>
+</form>";
+
+        echo "<div class='like-count'><span id='like-count'>Likes: $theliked</span></div>";
+        $liked = $row['liked'];
+
         // Check if the like button is pressed
         if (isset($_POST['likeButton'])) {
             $userId = $_SESSION['uid'];
-            //if the user is not signed in
-            echo '***********userid********';
-            echo $userId;
-            if ($userId == 69) {
-                // Insert a new like record in the database
-                $insertQuery = "INSERT INTO ProjectLikes (user_id, artical_id) VALUES (?, ?)";
-                $stmt = mysqli_prepare($connection, $insertQuery);
 
-                if ($stmt) {
-                    $userId = $_SESSION['uid']; // Assuming the user ID is 1, replace with your actual user ID
-                    mysqli_stmt_bind_param($stmt, 'ii', $userId, $articleId);
-                    $theckeck = mysqli_stmt_execute($stmt);
-                    mysqli_stmt_close($stmt);
-                    echo $theckeck;
+            // Check if the user has already liked the article
+            $query = "SELECT * FROM ProjectLikes WHERE artical_id = $articleId AND user_id = $userId";
+            $result = mysqli_query($connection, $query);
 
+            if ($result && mysqli_num_rows($result) > 0) {
+                // User has already liked, so unlike the article
+                $deleteQuery = "DELETE FROM ProjectLikes WHERE artical_id = $articleId AND user_id = $userId";
+                $deleteResult = mysqli_query($connection, $deleteQuery);
+
+                if ($deleteResult) {
                     // Refresh the page to reflect the updated like count
-                    //header("Location: article.php?article_id=$articleId");
-                    //  header("Refresh:0");
-                    // exit();
-                } else {
-                    echo "<p class='error'>Error preparing the uid statement: " . mysqli_error($connection) . "</p>";
-                }
-            } elseif ($liked > 0) {
-                $likeID = "SELECT * FROM `ProjectLikes` WHERE artical_id = $articleId and user_id = $userId";
-                // $linkStmt = mysqli_prepare($connection, $likeID);
-                $theresult = mysqli_query($connection, $likeID);
-                $likeIDres = mysqli_fetch_assoc($theresult);
-                $like_id = $likeIDres['id'];
-                // echo "Like ID: " . $like_id;
-                $deleteQry = "DELETE FROM ProjectLikes WHERE id = ?";
-                $deletePrep = mysqli_prepare($connection, $deleteQry);
-                $therow = mysqli_fetch_assoc($theresult);
-
-                if ($deletePrep) {
-                    mysqli_stmt_bind_param($deletePrep, 'i', $like_id);
-                    mysqli_stmt_execute($deletePrep);
-                    // echo "Delete: " . $d;
-                    mysqli_stmt_close($deletePrep);
-
-                    // Refresh the page to reflect the updated like count
-                    //header("Location: article.php?article_id=$articleId");
                     header("Refresh:0");
-                    // echo "Error:" . $likeStmt;
-                    // exit();
                 } else {
-                    echo "<p class='error'>Error preparing the like statement: " . mysqli_error($connection) . "</p>";
+                    echo "<p class='error'>Error unliking the article: " . mysqli_error($connection) . "</p>";
                 }
             } else {
-                // Insert a new like record in the database
-                $insertQuery = "INSERT INTO ProjectLikes (user_id, artical_id) VALUES (?, ?)";
-                $stmt = mysqli_prepare($connection, $insertQuery);
+                if ($userId == 69) {
+                    // Assign user ID 69 as liked for unregistered users
+                    $insertQuery = "INSERT INTO ProjectLikes (user_id, artical_id) VALUES (?, ?)";
+                    $stmt = mysqli_prepare($connection, $insertQuery);
 
-                if ($stmt) {
-                    $userId = $_SESSION['uid']; // Assuming the user ID is 1, replace with your actual user ID
-                    mysqli_stmt_bind_param($stmt, 'ii', $userId, $articleId);
-                    mysqli_stmt_execute($stmt);
-                    mysqli_stmt_close($stmt);
+                    if ($stmt) {
+                        mysqli_stmt_bind_param($stmt, 'ii', $userId, $articleId);
+                        $insertResult = mysqli_stmt_execute($stmt);
+                        mysqli_stmt_close($stmt);
 
-                    // Refresh the page to reflect the updated like count
-                    //header("Location: article.php?article_id=$articleId");
-                    header("Refresh:0");
-                    // exit();
+                        if ($insertResult) {
+                            // Refresh the page to reflect the updated like count
+                            header("Refresh:0");
+                        } else {
+                            echo "<p class='error'>Error liking the article: " . mysqli_error($connection) . "</p>";
+                        }
+                    } else {
+                        echo "<p class='error'>Error preparing the like statement: " . mysqli_error($connection) . "</p>";
+                    }
                 } else {
-                    echo "<p class='error'>Error preparing the uid statement: " . mysqli_error($connection) . "</p>";
+                    // Normal user like operation
+                    $insertQuery = "INSERT INTO ProjectLikes (user_id, artical_id) VALUES (?, ?)";
+                    $stmt = mysqli_prepare($connection, $insertQuery);
+
+                    if ($stmt) {
+                        mysqli_stmt_bind_param($stmt, 'ii', $userId, $articleId);
+                        $insertResult = mysqli_stmt_execute($stmt);
+                        mysqli_stmt_close($stmt);
+
+                        if ($insertResult) {
+                            // Refresh the page to reflect the updated like count
+                            header("Refresh:0");
+                        } else {
+                            echo "<p class='error'>Error liking the article: " . mysqli_error($connection) . "</p>";
+                        }
+                    } else {
+                        echo "<p class='error'>Error preparing the like statement: " . mysqli_error($connection) . "</p>";
+                    }
                 }
             }
         }
 
         echo "</div>";
         echo "</div>";
+
+
         echo "<br>";
+
         // Display the comment section
         echo "<div class='comment-section'>";
-        echo "<h3 calss ='divCom' >Comments</h3>";
+        echo "<h3 calss ='comTit' >Comments</h3>";
 
         // Display the comment form
 
@@ -275,5 +270,5 @@ if (isset($_GET['article_id'])) {
 } else {
     echo "<p>No article ID specified.</p>";
 }
-
+echo '</div>';
 include 'footer.php';
