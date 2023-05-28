@@ -305,9 +305,11 @@ form .text h3 a:hover {
   justify-content: center;
   align-items: center;
   margin-left: 144px;
+  margin-top: 135px;
 }
 
 .mediaFiles {
+  margin-top: 30px;
   margin-left: 150px;
   margin-bottom: 20px;
 }
@@ -329,6 +331,7 @@ form .text h3 a:hover {
 }
 
 .media-file {
+  margin-top: 50px;
   margin-bottom: 20px;
 }
 
@@ -340,12 +343,12 @@ form .text h3 a:hover {
 
 .media-image {
   max-width: 100%;
-  height: auto;
+  height: 300px;
 }
 
 .media-video {
   max-width: 100%;
-  height: auto;
+  height: 300px;
 }
 
 .media-audio {
