@@ -132,7 +132,7 @@ if (isset($_GET['article_id'])) {
 
                 if ($deleteResult) {
                     // Refresh the page to reflect the updated like count
-                    // header("Refresh:0");
+                     header("Refresh:0");
                 } else {
                     echo "<p class='error'>Error unliking the article: " . mysqli_error($connection) . "</p>";
                 }
@@ -149,7 +149,7 @@ if (isset($_GET['article_id'])) {
 
                         if ($insertResult) {
                             // Refresh the page to reflect the updated like count
-                            //header("Refresh:0");
+                            header("Refresh:0");
                         } else {
                             echo "<p class='error'>Error liking the article: " . mysqli_error($connection) . "</p>";
                         }
@@ -168,7 +168,7 @@ if (isset($_GET['article_id'])) {
 
                         if ($insertResult) {
                             // Refresh the page to reflect the updated like count
-                            //header("Refresh:0");
+                            header("Refresh:0");
                         } else {
                             echo "<p class='error'>Error liking the article: " . mysqli_error($connection) . "</p>";
                         }
