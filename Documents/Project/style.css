@@ -51,25 +51,22 @@
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
 }
-
 .wrapper {
   margin: 0 auto;
   position: relative;
   max-width: 430px;
   width: 100%;
-  background: #88898c;
+  background: #fff;
   padding: 34px;
   border-radius: 6px;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
-
 .wrapper h2 {
   position: relative;
   font-size: 22px;
   font-weight: 600;
   color: #333;
 }
-
 .wrapper h2::before {
   content: "";
   position: absolute;
@@ -80,16 +77,13 @@
   border-radius: 12px;
   background: #4070f4;
 }
-
 .wrapper form {
   margin-top: 30px;
 }
-
 .wrapper form .input-box {
   height: 52px;
   margin: 18px 0;
 }
-
 form .input-box input {
   height: 100%;
   width: 100%;
@@ -103,7 +97,6 @@ form .input-box input {
   border-radius: 6px;
   transition: all 0.3s ease;
 }
-
 .input-box input:focus,
 .input-box input:valid {
   border-color: #4070f4;
@@ -115,43 +108,33 @@ form h3 {
   font-weight: 500;
   margin-left: 10px;
 }
-.login_form .loginTitle {
-  background-color: #707070;
-}
-
 .input-box.button input {
   color: #fff;
-  background-color: #707070;
   letter-spacing: 1px;
   border: none;
   background: #4070f4;
   cursor: pointer;
 }
-
 .input-box.button input:hover {
   background: #0e4bf1;
 }
-
 form .text h3 {
   color: #333;
-  background-color: #707070;
-
   width: 100%;
   text-align: center;
 }
-
 form .text h3 a {
   color: #4070f4;
   text-decoration: none;
 }
-
 form .text h3 a:hover {
   text-decoration: underline;
 }
 
 /* end of registration form styling */
-.article {
-  margin-bottom: 20px;
+
+.err {
+  color: red;
 }
 
 .article-title {
@@ -600,4 +583,19 @@ a {
 .divVid {
   width: 400px;
   height: 350px;
+}
+
+.wrapper {
+  box-shadow: 20px 20px 50px 15px grey;
+  background: #d7d7d9;
+}
+
+.wrapper h2 {
+  background: #d7d7d9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 22px;
+  font-weight: 600;
+  color: #333;
 }
