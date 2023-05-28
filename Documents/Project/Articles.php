@@ -10,7 +10,8 @@
  *
  * @author safa
  */
-class Articles {
+class Articles
+{
 
     private $articleID;
     private $title;
@@ -21,11 +22,13 @@ class Articles {
     private $publishDate;
     public $dbc = null;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->getDBConnection();
     }
 
-    private function getDBConnection() {
+    private function getDBConnection()
+    {
         include_once "Connection.php";
 
         try {
@@ -40,63 +43,78 @@ class Articles {
         }
     }
 
-    public function getArticleID() {
+    public function getArticleID()
+    {
         return $this->articleID;
     }
 
-    public function getTitle() {
+    public function getTitle()
+    {
         return $this->title;
     }
 
-    public function getCategory() {
+    public function getCategory()
+    {
         return $this->category;
     }
 
-    public function getText() {
+    public function getText()
+    {
         return $this->text;
     }
 
-    public function getStatus() {
+    public function getStatus()
+    {
         return $this->status;
     }
 
-    public function getPublishedBy() {
+    public function getPublishedBy()
+    {
         return $this->publishedBy;
     }
 
-    public function getPublishDate() {
+    public function getPublishDate()
+    {
         return $this->publishDate;
     }
 
-    public function setArticleID($articleID): void {
+    public function setArticleID($articleID): void
+    {
         $this->articleID = $articleID;
     }
 
-    public function setTitle($title): void {
+    public function setTitle($title): void
+    {
         $this->title = $title;
     }
 
-    public function setCategory($category): void {
+    public function setCategory($category): void
+    {
         $this->category = $category;
     }
 
-    public function setText($text): void {
+    public function setText($text): void
+    {
         $this->text = $text;
     }
 
-    public function setStatus($status): void {
+    public function setStatus($status): void
+    {
         $this->status = $status;
     }
 
-    public function setPublishedBy($publishedBy): void {
+    public function setPublishedBy($publishedBy): void
+    {
         $this->publishedBy = $publishedBy;
     }
 
-    public function setPublishDate($publishDate): void {
+    public function setPublishDate($publishDate): void
+    {
         $this->publishDate = $publishDate;
     }
 
-    public function initWith($articleID, $title, $category, $text, $status, $publishedBy, $publishDate) {
+    public function initWith($articleID, $title, $category, $text, $status, $publishedBy, $publishDate)
+    {
         $this->articleID = $articleID;
         $this->title = $title;
         $this->category = $category;
@@ -106,7 +124,8 @@ class Articles {
         $this->publishDate = $publishDate;
     }
 
-    public function isValid() {
+    public function isValid()
+    {
         $errors = true;
         if (empty($this->title)) {
             $errors = false;
@@ -124,18 +143,20 @@ class Articles {
         return $errors;
     }
 
-    public function getLastID() {
+    public function getLastID()
+    {
         $db = Database::getInstance();
         $article_id = mysqli_insert_id($db);
         return $article_id;
     }
 
-    public function addArticle() {
+    public function addArticle()
+    {
         $db = Database::getInstance();
         $author = $_SESSION['username'];
 
         $query = "INSERT INTO projectArticles (title, category, text, status, publishedBy, publishDate) "
-                . "VALUES ('$this->title', '$this->category', '$this->text', 0, '$author', null)";
+            . "VALUES ('$this->title', '$this->category', '$this->text', 0, '$author', null)";
 
         $db->querySQL($query);
 
@@ -145,12 +166,13 @@ class Articles {
         return $article_id;
     }
 
-    public function updateArticle() {
+    public function updateArticle()
+    {
         if ($this->isValid()) {
             try {
                 $db = Database::getInstance();
                 $data = "update projectArticles set title = '$this->title', category = '$this->category', text = '$this->text'"
-                        . " where articleID = '$this->articleID'";
+                    . " where articleID = '$this->articleID'";
                 $db->querySQL($data);
                 return true;
             } catch (Exception $exc) {
@@ -161,22 +183,23 @@ class Articles {
         }
     }
 
-    public function deleteArticle() {
-        
-            $db = Database::getInstance();
-            $data = "delete from projectArticles where articleID = '$this->articleID'";
-            //echo $data;
-            $db->querySQL($data);
-            return true;
+    public function deleteArticle()
+    {
 
+        $db = Database::getInstance();
+        $data = "delete from projectArticles where articleID = '$this->articleID'";
+        //echo $data;
+        $db->querySQL($data);
+        return true;
     }
 
-    public function publishSavedArticle() {
+    public function publishSavedArticle()
+    {
         if ($this->isValid()) {
             try {
                 $db = Database::getInstance();
                 $data = "update projectArticles set title = '$this->title', category = '$this->category', text = '$this->text',status = 1, publishDate = NOW()"
-                        . " where articleID = '$this->articleID'";
+                    . " where articleID = '$this->articleID'";
                 $db->querySQL($data);
                 return true;
             } catch (Exception $exc) {
@@ -187,13 +210,14 @@ class Articles {
         }
     }
 
-    public function publishArticle() {
+    public function publishArticle()
+    {
         if ($this->isValid()) {
             try {
                 $db = Database::getInstance();
                 $author = $_SESSION['username'];
                 $data = "insert into projectArticles (articleID, title, category, text, status, publishedBy, publishDate)"
-                        . " values (null, '$this->title', '$this->category', '$this->text', 1, '$author', NOW())";
+                    . " values (null, '$this->title', '$this->category', '$this->text', 1, '$author', NOW())";
                 $db->querySQL($data);
 
                 $query = $db->singleFetch("select articleID from projectArticles where text = '$this->text'");
@@ -208,19 +232,22 @@ class Articles {
         }
     }
 
-    function getAllArticles() {
+    function getAllArticles()
+    {
         $db = Database::getInstance();
         $data = $db->multiFetch('Select * from projectArticles');
         return $data;
     }
 
-    function getAllPublishedArticles() {
+    function getAllPublishedArticles()
+    {
         $db = Database::getInstance();
         $data = $db->multiFetch('Select * from projectArticles where status = 1');
         return $data;
     }
 
-    function getAllUnpublishedArticlesForAuthor($start, $end) {
+    function getAllUnpublishedArticlesForAuthor($start, $end)
+    {
         $author = $_SESSION['username'];
         $db = Database::getInstance();
         $q = "Select * from projectArticles where status = 0 and publishedBy = '$author'";
@@ -228,15 +255,15 @@ class Articles {
         if (isset($start)) {
             $q .= ' limit ' . $start . ',' . $end;
         }
-        echo $q;
+        //echo $q;
         $data = $db->multiFetch($q);
         return $data;
     }
-    
-    function initWithId($id) {
+
+    function initWithId($id)
+    {
         $db = Database::getInstance();
         $data = $db->singleFetch('select * from projectArticles where articleID = ' . $id);
         $this->initWith($data->articleID, $data->title, $data->category, $data->text, $data->status, $data->publishedBy, $data->publishDate);
     }
-
 }
