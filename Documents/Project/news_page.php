@@ -1,34 +1,3 @@
-<head>
-
-    <script>
-        // Add an event listener to the thumbs-up button
-        var likeButton = document.getElementById("likeButton");
-        likeButton.addEventListener("click", updateLikesCount);
-
-        function updateLikesCount(event) {
-            // Prevent the default behavior (page reload)
-            event.preventDefault();
-
-            // Create the AJAX request object
-            var xmlhttp = new XMLHttpRequest();
-
-            // Specify the request method and URL
-            xmlhttp.open("GET", "updateLikes.php", true);
-
-            // Declare a function that is called when something happens to the request
-            xmlhttp.onreadystatechange = function() {
-                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                    // Update the likes count
-                    var likesContainer = document.getElementById("likebuttonid");
-                    likesContainer.innerHTML = xmlhttp.responseText;
-                }
-            };
-
-            // Send the request
-            xmlhttp.send();
-        }
-    </script>
-</head>
 <?php
 include 'header.php';
 
@@ -61,6 +30,7 @@ if (isset($_GET['article_id'])) {
         echo "</div>";
         echo "</div>";
 
+
         // Query the projectMedia table based on the article ID to fetch the associated media files
         // Use a prepared statement to prevent SQL injection
         $mediaQuery = "SELECT * FROM projectMedia WHERE article_id = ?";
@@ -70,9 +40,9 @@ if (isset($_GET['article_id'])) {
         $mediaResult = mysqli_stmt_get_result($mediaStmt);
 
         if (mysqli_num_rows($mediaResult) > 0) {
-            echo "<h3 class='mediaFiles'>Media Files</h3>";
-            echo "<div class='media-section'>";
 
+            echo "<div class='media-section'>";
+            // echo "<h3 class='mediaFiles'>Media Files</h3>";
             // Display each media file
             while ($mediaRow = mysqli_fetch_assoc($mediaResult)) {
                 $mediaName = $mediaRow['name'];
@@ -80,26 +50,25 @@ if (isset($_GET['article_id'])) {
 
                 // Display the media file based on its type
                 echo "<div class='media-file'>";
-                echo "<h4>$mediaName</h4>";
+
 
                 if (strpos($mediaType, 'image') !== false) {
                     // Display an image file
-                    echo "<div class='divImg'><img src='uploads/$mediaName' alt='$mediaName' class='media-image'></div>";
+                    echo "<div class='divImg'><h4>$mediaName</h4><img src='uploads/$mediaName' alt='$mediaName' class='media-image'></div>";
                 } elseif (strpos($mediaType, 'video') !== false) {
                     // Display a video file
-                    echo "<div class='divVid'><video controls src='uploads/$mediaName' class='media-video'></video></div>";
+                    echo "<div class='divVid'><h4>$mediaName</h4><video controls src='uploads/$mediaName' class='media-video'></video></div>";
                 } elseif (strpos($mediaType, 'audio') !== false) {
                     // Display an audio file
-                    echo "<div class='divAud'><audio controls src='uploads/$mediaName' class='media-audio'></audio></div>";
+                    echo "<div class='divAud'><h4>$mediaName</h4><audio controls src='uploads/$mediaName' class='media-audio'></audio></div>";
                 }
 
                 echo "</div>";
             }
-
-            echo "</div>";
         } else {
             echo "<p>No media files found for the specified article.</p>";
         }
+        echo "</div>";
 
         // Query the projectDownloads table based on the article ID to fetch the downloadable files
         // Use a prepared statement to prevent SQL injection
@@ -110,24 +79,23 @@ if (isset($_GET['article_id'])) {
         $downloadsResult = mysqli_stmt_get_result($downloadsStmt);
 
         if (mysqli_num_rows($downloadsResult) > 0) {
-            echo "<h3 class='downloadFiles'>Downloadable Files</h3>";
-            echo "<div class='download-section'>";
 
+            echo "<div class='download-section'>";
+            echo "<h3 class='downloadFiles'>Downloadable Files</h3>";
             // Display each downloadable file
             while ($downloadRow = mysqli_fetch_assoc($downloadsResult)) {
                 $filename = $downloadRow['name'];
                 $filepath = 'uploads/' . $filename;
 
                 // Display the download link
-                echo "<div class='download-file'>";
-                echo "<a href='download.php?file=$filename' class='download-link'>Click Here</a>";
-                echo "</div>";
+                echo "<button href='download.php?file=$filename' class='download-link'>Click Here</button>";
             }
-
-            echo "</div>";
         } else {
             echo "<p>No downloadable files found for the specified article.</p>";
-        } // Display the thumbs-up button and count
+        }
+        echo "</div>";
+
+        // Display the thumbs-up button and count
         // Check if the user has already liked the article
         $sessionid = $_SESSION['uid'];
         $query = "SELECT COUNT(*) AS liked FROM ProjectLikes WHERE artical_id = $articleId AND user_id = $sessionid";
@@ -212,7 +180,7 @@ if (isset($_GET['article_id'])) {
 
         echo "</div>";
         echo "</div>";
-
+        echo "</div>";
 
         echo "<br>";
 

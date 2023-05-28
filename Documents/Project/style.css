@@ -51,25 +51,22 @@
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
 }
-
 .wrapper {
   margin: 0 auto;
   position: relative;
   max-width: 430px;
   width: 100%;
-  background: #88898c;
+  background: #fff;
   padding: 34px;
   border-radius: 6px;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
-
 .wrapper h2 {
   position: relative;
   font-size: 22px;
   font-weight: 600;
   color: #333;
 }
-
 .wrapper h2::before {
   content: "";
   position: absolute;
@@ -80,16 +77,13 @@
   border-radius: 12px;
   background: #4070f4;
 }
-
 .wrapper form {
   margin-top: 30px;
 }
-
 .wrapper form .input-box {
   height: 52px;
   margin: 18px 0;
 }
-
 form .input-box input {
   height: 100%;
   width: 100%;
@@ -103,7 +97,6 @@ form .input-box input {
   border-radius: 6px;
   transition: all 0.3s ease;
 }
-
 .input-box input:focus,
 .input-box input:valid {
   border-color: #4070f4;
@@ -115,43 +108,33 @@ form h3 {
   font-weight: 500;
   margin-left: 10px;
 }
-.login_form .loginTitle {
-  background-color: #707070;
-}
-
 .input-box.button input {
   color: #fff;
-  background-color: #707070;
   letter-spacing: 1px;
   border: none;
   background: #4070f4;
   cursor: pointer;
 }
-
 .input-box.button input:hover {
   background: #0e4bf1;
 }
-
 form .text h3 {
   color: #333;
-  background-color: #707070;
-
   width: 100%;
   text-align: center;
 }
-
 form .text h3 a {
   color: #4070f4;
   text-decoration: none;
 }
-
 form .text h3 a:hover {
   text-decoration: underline;
 }
 
 /* end of registration form styling */
-.article {
-  margin-bottom: 20px;
+
+.err {
+  color: red;
 }
 
 .article-title {
@@ -209,32 +192,38 @@ form .text h3 a:hover {
 .like-button {
   width: 40%;
   margin-right: 50px;
-  background: #88898c;
   height: 300px;
   display: flex;
   align-items: center;
   justify-content: space-around;
   flex-direction: column;
+  margin-left: 4%;
 }
 
-.like-count{
-  background: #88898c;
+.like-count {
+  background: #d7d7d9;
 }
-.like-count span{
+
+.like-count span {
   font-size: 18px;
   color: #000000;
-  background: #88898c;
+  background: #d7d7d9;
 }
-.bigdiv form{
+.bigdiv form {
   background: #88898c;
 }
 .comment-section {
-  margin-bottom: 20px;
-  width: 40%;
   display: flex;
   align-items: center;
   justify-content: space-around;
   flex-direction: column;
+  background: #d7d7d9;
+  box-shadow: 20px 20px 50px 15px grey;
+  color: #000000;
+  padding: 3%;
+  width: 80%;
+  margin: auto;
+  margin-bottom: 70px;
 }
 
 .comment-form {
@@ -252,7 +241,7 @@ form .text h3 a:hover {
   list-style-type: none;
   margin: 0;
   padding: 0;
-  background-color: #88898c;
+  background-color: #d7d7d9;
 }
 
 .comment-item {
@@ -322,6 +311,10 @@ form .text h3 a:hover {
   margin-left: 150px;
   margin-bottom: 20px;
 }
+.media-section .mediaFiles {
+  display: none;
+}
+
 .divImg {
   width: 300px;
   height: 400px;
@@ -333,12 +326,6 @@ form .text h3 a:hover {
 .divImg img {
   width: 1000px;
   height: 300px;
-}
-
-.media-section h3 {
-  font-size: 18px;
-  font-weight: bold;
-  margin-bottom: 10px;
 }
 
 .media-file {
@@ -413,8 +400,7 @@ a {
 
 .comment-section {
   color: #000000;
-  background: #88898c;
-  padding: 4%;
+  padding: 3%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -428,32 +414,27 @@ a {
 }
 
 .comment-section form {
-  background: #88898c;
+  background: #d7d7d9;
 }
 .comment-section h3 {
-  background: #88898c;
+  background: #d7d7d9;
   font-size: 35px;
 }
 
 .comment-section input {
-  background: #88898c;
+  display: none;
 }
 
 .comment-section textarea {
-  background: #88898c;
+  background: #d7d7d9;
+}
+#txtComment {
+  margin-left: 260px;
+  margin-top: 2%;
+  margin-bottom: -25px;
+  border-radius: 10px;
 }
 
-.comment-item {
-  background: #88898c;
-}
-
-.comment-item ul {
-  background: #88898c;
-}
-
-.comment-item ul li {
-  background: #88898c;
-}
 .submit-comment {
   font-family: "Open Sans", sans-serif;
   font-size: 16px;
@@ -472,7 +453,7 @@ a {
   touch-action: manipulation;
   margin-top: 5%;
   margin-bottom: 5%;
-  margin-left: 290px;
+  margin-left: 435px;
 }
 
 .submit-comment:active {
@@ -482,21 +463,22 @@ a {
 }
 
 .comment-content {
-  background-color: #686b72;
+  background-color: #d7d7d9;
   padding-bottom: 4%;
   padding-left: 4%;
   padding-right: 4%;
   padding-top: 4%;
   margin-bottom: 7%;
-  color: #d7d7d9;
+  border: #686b72 solid 5px;
+  border-radius: 10px;
+  margin-top: 2%;
+  margin-bottom: 8%;
 }
 .comment-meta {
-  padding-top: 4%;
-  padding-left: 4%;
-  padding-right: 4%;
+  padding: 5%;
   background-color: #686b72;
+  border-radius: 10px;
 }
-
 
 .comment-form textarea {
   font-family: "Open Sans", sans-serif;
@@ -509,7 +491,7 @@ a {
   background-color: #f8f8f8;
   resize: none;
 }
-  
+
 #likeButton {
   font-family: "Open Sans", sans-serif;
   font-size: 16px;
@@ -533,29 +515,87 @@ a {
   top: 5px;
   left: 5px;
 }
-.bigdiv{
+.bigdiv {
   display: flex;
   width: 80%;
-    margin: 0 auto;
-    padding: 3%;
-    box-shadow: 20px 20px 50px 15px grey;
+  padding: 3%;
+  box-shadow: 20px 20px 50px 15px grey;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 6%;
+  justify-content: center;
+  align-items: center;
 }
 
-.like-button h3{
-  background: #88898c;
+.like-button h3 {
+  background: #d7d7d9;
   font-size: 35px;
 }
 
-.media-audio {
-  Add your desired styles here /
-  width: 100%;
-  max-width: 400px;
-  margin-bottom: 10px;
+.media-file {
+  margin-left: 150px;
 }
 
-.divAud {
-  / Add your desired styles here 
-  background-color: #f2f2f2;
-  padding: 10px;
-  border-radius: 4px;
+.downloadFiles {
+  margin-bottom: 50px;
+}
+
+.download-section {
+  width: 80%;
+  height: 150px;
+  background: #d7d7d9;
+  box-shadow: 20px 20px 50px 15px grey;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 3%;
+  margin-bottom: 6%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: column;
+}
+
+.download-link {
+  font-family: "Open Sans", sans-serif;
+  font-size: 16px;
+  letter-spacing: 2px;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #000;
+  cursor: pointer;
+  border: 3px solid;
+  padding: 0.25em 0.5em;
+  box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px,
+    5px 5px 0px 0px;
+  position: relative;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  margin-top: -40px;
+}
+
+.download-link:active {
+  box-shadow: 0px 0px 0px 0px;
+  top: 5px;
+  left: 5px;
+}
+
+.divVid {
+  width: 400px;
+  height: 350px;
+}
+
+.wrapper {
+  box-shadow: 20px 20px 50px 15px grey;
+  background: #d7d7d9;
+}
+
+.wrapper h2 {
+  background: #d7d7d9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 22px;
+  font-weight: 600;
+  color: #333;
 }

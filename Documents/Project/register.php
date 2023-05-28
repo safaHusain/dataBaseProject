@@ -108,7 +108,7 @@ include 'header.php';
                 var value = obj.value.trim();
                 
                 if (value == ''){
-                    obj.style.backgroundColor = "yellow";
+                    //obj.style.backgroundColor = "yellow";
                     document.getElementById(errField).innerHTML = obj.id + ' field may not be blank';
                     document.getElementById('sub').disabled = true;
                 }else{

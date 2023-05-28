@@ -11,11 +11,11 @@ include 'header.php';
         var value = obj.value.trim();
 
         if (value == '') {
-            
+
             document.getElementById(errField).innerHTML = obj.id + ' field may not be blank';
             document.getElementById('sub').disabled = true;
         } else {
-            obj.style.backgroundColor = "#fff";
+            //obj.style.backgroundColor = "#fff";
             document.getElementById(errField).innerHTML = '';
             valid = true;
             enableButton();
@@ -37,31 +37,29 @@ include 'header.php';
 
 <head>
     <style>
-       
-
         .login_form {
-            background-color: #707070;
+            background-color: #d7d7d9;
             padding: 20px;
         }
 
         .loginTitle {
-            background-color: #707070;
+            background-color: #d7d7d9;
             color: white;
             padding: 10px;
         }
 
         .input-box input {
-            background-color: #707070;
-            color: white;
+            background-color: #d7d7d9;
+            color: balck;
         }
 
         .input-box input::placeholder {
-            color: white;
+            color: balck;
         }
 
         .input-box button {
-            background-color: #707070;
-            color: white;
+            background-color: #d7d7d9;
+            color: balck;
         }
 
         .input-box button:disabled {
