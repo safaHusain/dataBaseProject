@@ -86,15 +86,16 @@ if (isset($_GET['article_id'])) {
             while ($downloadRow = mysqli_fetch_assoc($downloadsResult)) {
                 $filename = $downloadRow['name'];
                 $filepath = 'uploads/' . $filename;
+                //echo $filepath;
 
                 // Display the download link
-                echo "<button href='download.php?file=$filename' class='download-link'>Click Here</button>";
+
+                echo "<a href='download.php?file=$filename' class='download-link'>Click Here</a>";
             }
         } else {
             echo "<p>No downloadable files found for the specified article.</p>";
         }
         echo "</div>";
-
         // Display the thumbs-up button and count
         // Check if the user has already liked the article
         $sessionid = $_SESSION['uid'];
